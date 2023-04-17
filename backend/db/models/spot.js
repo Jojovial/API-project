@@ -14,16 +14,47 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Spot.init({
-    ownerId: DataTypes.INTEGER,
-    address: DataTypes.TEXT,
-    city: DataTypes.TEXT,
-    state: DataTypes.TEXT,
-    country: DataTypes.TEXT,
-    lat: DataTypes.DECIMAL,
-    lng: DataTypes.DECIMAL,
-    name: DataTypes.TEXT,
-    description: DataTypes.TEXT,
-    price: DataTypes.DECIMAL
+    ownerId:{
+      type:DataTypes.INTEGER,
+      allowNull: false
+    },
+    address:{
+      type:DataTypes.TEXT,
+      allowNull: false,
+
+    },
+    city:{
+      type:DataTypes.TEXT,
+      allowNull: false
+    },
+    state:{
+      type:DataTypes.TEXT,
+      allowNull: false,
+    },
+    country:{
+      type:DataTypes.TEXT,
+      allowNull: false
+    },
+    lat:{
+      type:DataTypes.DECIMAL,
+      allowNull: false
+    },
+    lng:{
+      type:DataTypes.DECIMAL,
+      allowNull: false,
+    },
+    name:{
+      type:DataTypes.TEXT,
+      allowNull: false,
+    },
+    description:{
+      type:DataTypes.TEXT,
+      allowNull: false,
+    },
+    price:{
+      type:DataTypes.DECIMAL,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'Spot',
