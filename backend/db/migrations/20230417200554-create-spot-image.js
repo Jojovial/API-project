@@ -16,6 +16,10 @@ module.exports = {
       spotId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'Sports'
+        },
+        onDelete: 'CASCADE'
       },
       url: {
         type: Sequelize.TEXT,
