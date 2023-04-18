@@ -11,9 +11,29 @@ const router = express.Router();
 /*-Header Of Do Not Touch-*/
 
 /*-Get Spots of Current User-*/
-router.get('/current', async (req, res, next) => {
-
+router.get('/current', requireAuth, async (req, res) => {
+ const { user } = req;
+ const currentUser = await Spot.findAll({
+    where:{
+        ownerId: user.id
+    }
+ })
+ res.json({ Spots: currentUser })
 });
+
+/*-Get Details of Spot by Id*/
+router.get('/:spotId', async (req, res, next) =>{
+    const thisSpot = await Spot.findByPk(req.params.spotId, {
+        include: [
+            { model: User},//somehow make as Owners
+            { model: SpotImage }
+        ],
+    })
+
+    res.json(thisSpot);
+})
+
+
 
 /*-Get All the Spots-*/
 router.get('/', async (req, res, next) => {
@@ -53,6 +73,18 @@ router.get('/', async (req, res, next) => {
 
 
 });
+
+/*-Create A Spot-*/
+
+/*-Create an Image For a Spot*/
+
+
+
+/*-Edit A Spot-*/
+
+/*-Delete A Spot-*/
+
+
 
 
 
