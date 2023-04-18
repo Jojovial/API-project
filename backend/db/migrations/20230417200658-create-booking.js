@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Sports'
+          model: 'Spots'
         },
         onDelete: 'CASCADE'
       },
