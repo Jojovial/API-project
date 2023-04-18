@@ -12,12 +12,12 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: 'www.theonepiece.com',
+        url: 'www.url/theonepieceisreal.com',
         preview: true
       },
       {
         spotId: 2,
-        url: 'www.shanksiscool.com',
+        url: 'www.url/skypeia.com',
         preview: false,
       }
     ], {});

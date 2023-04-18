@@ -18,10 +18,6 @@ module.exports = {
         reviewId:2,
         url:'www.url/skypeia.com',
       },
-      {
-        reviewId:3,
-        url:'www.url/peepee.com',
-      },
 
     ], {});
   },
