@@ -10,43 +10,50 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 /*-Header Of Do Not Touch-*/
 
+/*-Get Spots of Current User-*/
+router.get('/current', async (req, res, next) => {
+
+});
+
 /*-Get All the Spots-*/
 router.get('/', async (req, res, next) => {
-    const allSpots = await Spot.findAll({
-        include: [
-            {
-                model: Review,
-                as: 'avgRating',
-                attributes: ['stars']
-            },
-            {
-                model: SpotImage
+    const spots = await Spot.findAll();
+    const spotImages = await SpotImage.findAll();
+    const rating = await Review.findAll();
+
+    const spotsObj = {Spots:[]}
+
+    /*-Image Preview?-*/
+    for (let spot of spots) {
+        spot = spot.toJSON();
+        for(let spotImage of spotImages) {
+            if(spotImage.spotId === spot.id){
+               spot.previewImage = spotImage.url
             }
-        ]
-    })
-    /*--*/
-    let spotsList = [];
-
-    allSpots.forEach(spot => {
-        spotsList.push(spot.toJSON());
-    });
-    
-    spotsList.forEach(spot => {
-        let total = 0;
-        let length = spot.avgRating.length
-        spot.avgRating.forEach(rating => {
-            total += rating.stars
-        })
-        spot.avgRating = total/length
-        if(!spot.avgRating) {
-            spot.avgRating = 'No rating!'
         }
-    });
 
-    res.json(spotsList);
+    /*-Calculate Average Rating-*/
+    let sum = 0;
+    let count = 0;
+    for(let review of rating) {
+        review = review.toJSON();
+        console.log(review);
+        if(review.spotId === spot.id){
+            sum = sum + review.stars;
+            count++;
+        }
+    }
+
+    const avg = sum/count
+    spot.avgRating = avg;
+    spotsObj.Spots.push(spot);
+
+ }
+    res.status(200).json(spotsObj);
 
 
 });
+
 
 
 
