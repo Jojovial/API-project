@@ -84,13 +84,13 @@ router.get('/current', requireAuth, async (req, res) => {
       }
     }
     /*-Reassigning-*/
-    spot.avgRating = total / length;
-    spot.previewImage = imageArray;
+    spot.avgStarRating = total / length;
+    spot.previewImages = imageArray;
     if(!spot.avgRating) {
       spot.avgRating = 'Has no ratings :('
     }
-    if(!spot.previewImage.length) {
-      spot.previewImage = 'No images'
+    if(!spot.previewImages.length) {
+      spot.previewImages = 'No images'
     }
     result.Spots.push(spot);
   }
@@ -169,7 +169,7 @@ router.get('/', async (req, res, next) => {
         spot = spot.toJSON();
         for(let spotImage of spotImages) {
             if(spotImage.spotId === spot.id){
-               spot.previewImage = spotImage.url
+               spot.previewImages = spotImage.url
             }
         }
 
@@ -186,7 +186,7 @@ router.get('/', async (req, res, next) => {
     }
 
     const avg = sum/count
-    spot.avgRating = avg;
+    spot.avgStarRating = avg;
     spotsObj.Spots.push(spot);
 
  }
@@ -241,7 +241,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
 const { address, city, state, country, lat, lng, name, description, price } = req.body;
 const updateSpot = await Spot.findByPk(req.params.spotId);
 
-if(!updateSpot){//not finding it for some reason
+if(!updateSpot){
   const err = new Error(`Could not find a Spot with specified id: ${req.params.spotId}`);
   err.statusCode = 404;
   return next(err);
@@ -307,7 +307,8 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 //   });
 // });
 
-
+// startDate: new Date('2023-06-06'),
+// endDate: new Date('2023-06-26') how dates should be formatted
 
 /*-Do Not Touch-*/
 module.exports = router;
