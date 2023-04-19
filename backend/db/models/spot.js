@@ -32,21 +32,21 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [5, 50]
+        len: [1, 50]
       }
     },
     state:{
       type:DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [5, 50]
+        len: [1, 50]
       }
     },
     country:{
       type:DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [5, 50]
+        len: [1, 50]
       }
     },
     lat:{
