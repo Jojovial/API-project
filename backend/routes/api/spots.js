@@ -54,13 +54,47 @@ const validateSpot = [
 
 /*-Get Spots of Current User-*/
 router.get('/current', requireAuth, async (req, res) => {
- const { user } = req;
- const currentUser = await Spot.findAll({
-    where:{
-        ownerId: user.id
+  const user = req.user.id;
+  const currentSpots = await Spot.findAll({
+    where: {
+      ownerId: user
     }
- })
- res.json({ Spots: currentUser })
+   });
+  const reviews = await Review.findAll();
+  const images = await SpotImage.findAll();
+  const result = {Spots: []};
+  /*-Average Rating-*/
+  for(let spot of currentSpots) {
+    spot = spot.toJSON();
+    let total = 0;
+    let length = 0;
+    for(let review of reviews) {
+      review = review.toJSON();
+      if(spot.id === review.spotId) {
+        total += review.stars;
+        length++;
+      }
+    }
+    /*-Image Preview-*/
+    let imageArray = [];
+    for (let image of images) {
+      image = image.toJSON();
+      if(spot.id === image.spotId) {
+        imageArray.push(image.url);
+      }
+    }
+    /*-Reassigning-*/
+    spot.avgRating = total / length;
+    spot.previewImage = imageArray;
+    if(!spot.avgRating) {
+      spot.avgRating = 'Has no ratings :('
+    }
+    if(!spot.previewImage.length) {
+      spot.previewImage = 'No images'
+    }
+    result.Spots.push(spot);
+  }
+  res.status(200).json(result);
 });
 
 /*-Get Details of Spot by Id*/
@@ -72,10 +106,15 @@ router.get('/:spotId', async (req, res, next) =>{
     }
 
     let aUser = await User.findByPk(thisSpot.ownerId, {
+      attributes: {
+        exclude: ['username']
+      }
     });
     let reviews = await Review.findAll();
     let images = await SpotImage.findByPk(spotId, {
-
+      attributes: {
+        exclude: ['spotId', 'createdAt', 'updatedAt']
+      }
     });
     /*-Avarage Rating-*/
     thisSpot = thisSpot.toJSON();
@@ -117,8 +156,6 @@ router.get('/:spotId', async (req, res, next) =>{
   res.status(200).json({thisSpot});
 });
 
-
-
 /*-Get All the Spots-*/
 router.get('/', async (req, res, next) => {
     const spots = await Spot.findAll();
@@ -153,9 +190,7 @@ router.get('/', async (req, res, next) => {
     spotsObj.Spots.push(spot);
 
  }
-    res.status(200).json(spotsObj);
-
-
+  res.status(200).json(spotsObj);
 });
 
 /*-Create A Spot-*/
@@ -195,9 +230,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         url,
         preview
     });
-    //remember the constraints you took out and ask because huh
-    //allowNull: false, i guess it makes sense but why
-    //it let me submit a binary file but idk if that's what we're supposed to do
+
 
     res.status(200).json(newImage);
 });
@@ -247,15 +280,19 @@ res.status(200).json({message: 'Edit successful', updateSpot});
 
 
 /*-Delete A Spot-*/
-router.delete('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
-  const deleteSpot = await Spot.findByPk(req.params.id);
-  if(deleteSpot) {
-    await deleteSpot.destroy(); //include everything else?
-    res.status(200).json({message: 'Successfully deleted'});
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+  const user = req.user.toJSON();
+  const spotToDelete = await Spot.findByPk(req.params.spotId);
+
+  if(!spotToDelete) {
+    return res.status(404).json({ message: 'Spot could not be found' });
+  }
+
+  if(user.id !== spotToDelete.ownerId) {
+    return res.status(403).json({ message: 'Woop'})
   } else {
-    const err = new Error(`Spot ${req.params.id} could not be found`);
-    err.statusCode = 404;
-    next(err);
+    await spotToDelete.destroy(); //include everything else?
+    res.status(200).json({message: 'Successfully deleted'});
   }
 });
 
