@@ -82,11 +82,40 @@ router.post('/:reviewId/images', requireAuth, async(req, res) => {
 });
 /*-Edit Review-*/
 router.put('/:reviewId', requireAuth, validateReview, async(req, res) =>{
+    const thisReviewId = req.params.reviewId;
+    const currentUser = req.user.id;
+    const { review, stars } = req.body;
 
+    const editReview = await Review.findByPk(thisReviewId);
+    if(!editReview) {
+        return res.status(404).json({ message: 'Review could not be found'});
+    }
+
+    if(currentUser !== editReview.userId) {
+        return res.status(403).json({ message: 'Um, awkward this is not your review'});
+    }
+
+    await editReview.update({ review, stars});
+    return res.status(200).json(editReview);
 });
 /*-Delete Review-*/
 router.delete('/:reviewId', requireAuth, async(req, res) => {
+    const thisReviewId = req.params.reviewId;
+    const currentUser = req.user.id;
 
+    const deleteReview = await Review.findByPk(thisReviewId);
+
+    if(!deleteReview) {
+        return res.status(404).json({ message: 'Review could not be found'});
+    }
+
+    if(currentUser !== deleteReview.userId) {
+        return res.status(403).json({ message: 'Um, you cannot delete what is not yours buddy'});
+
+    }
+
+    await deleteReview.destroy();
+    return res.status(200).json({ message: 'Badabing, successfully deleted!'});
 });
 
 
