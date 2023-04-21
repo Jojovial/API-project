@@ -76,7 +76,7 @@ router.get('/:spotId/bookings', requireAuth, async(req, res) => {
 
     const spot = await Spot.findByPk(thisSpotId);
     if(!spot) {
-      return res.status(404).json({ message: 'Spot could not be found.'});
+      return res.status(404).json({ message: 'Spot could not be found. ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
     }
 
     let userBookings;
@@ -121,7 +121,7 @@ router.get('/:spotId/reviews', async (req, res) => {
     });
 
     if(reviews.length === 0) {
-      return res.status(404).json({ message: 'Spot could not be found or has no reviews.'});
+      return res.status(404).json({ message: 'Spot could not be found or has no reviews. ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
     }
 
     res.status(200).json({ Reviews: reviews });
@@ -166,10 +166,10 @@ router.get('/current', requireAuth, async (req, res) => {
     spot.avgStarRating = total / length;
     spot.previewImages = imageArray;
     if(!spot.avgRating) {
-      spot.avgRating = 'Has no ratings :('
+      spot.avgRating = 'Has no ratings (｡•́︿•̀｡)'
     }
     if(!spot.previewImages.length) {
-      spot.previewImages = 'No images'
+      spot.previewImages = 'No images (╯︵╰,) '
     }
     result.Spots.push(spot);
   }
@@ -181,7 +181,7 @@ router.get('/:spotId', async (req, res, next) =>{
     const spotId = req.params.spotId;
     let thisSpot = await Spot.findByPk(spotId);
     if(!thisSpot) {
-      return res.status(404).json({ message: "Spot could not be found"});
+      return res.status(404).json({ message: "Spot could not be found ヾ(｡ꏿ﹏ꏿ)ﾉﾞ"});
     }
 
     let aUser = await User.findByPk(thisSpot.ownerId, {
@@ -223,13 +223,13 @@ router.get('/:spotId', async (req, res, next) =>{
   thisSpot.SpotImages = imageArray;
   thisSpot.Owner = aUser;
   if(!thisSpot.avgStarRating) {
-    thisSpot.avgStarRating = 'Has not been rated yet'
+    thisSpot.avgStarRating = 'Has not been rated yet (ಥ﹏ಥ)'
   }
   if(!imageArray.length) {
-    thisSpot.SpotImages = 'No images D:'
+    thisSpot.SpotImages = 'No images (╯︵╰,)  '
   }
   if(!thisSpot.numReviews) {
-    thisSpot.numReviews = 'No reviews >:('
+    thisSpot.numReviews = 'No reviews ٩(ఠ益ఠ)۶'
   }
 
   res.status(200).json({thisSpot});
@@ -281,11 +281,11 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
       const spot = await Spot.findByPk(thisSpotId);
       if(!spot) {
-        return res.status(404).json({ message: 'Spot could not be found.'});
+        return res.status(404).json({ message: 'Spot could not be found. ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
       }
 
       if (currentUserId === spot.ownerId) {
-        return res.status(403).json({ message: 'You cannot book your own spot. If only.'});
+        return res.status(403).json({ message: 'You cannot book your own spot. If only. ლ(ಠ_ಠ ლ)'});
       }
 
 
@@ -318,7 +318,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         if(
           existingBooking.startDate <= startDate && existingBooking.endDate >= startDate
         ) {
-          errors.startDate = 'Start date conflits with an existing booking >:(';
+          errors.startDate = 'Start date conflits with an existing booking (⊙_⊙)';
         }
         if (
           existingBooking.startDate <= endDate && existingBooking.endDate >= endDate
@@ -355,7 +355,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
 
     const spot = await Spot.findByPk(currentSpotId);
     if(!spot) {
-      return res.status(404).json({ message: 'Spot could not be found.'});
+      return res.status(404).json({ message: 'Spot could not be found. ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
     }
 
     const checkReview = await Review.findOne({
@@ -365,7 +365,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
       }
     });
     if(checkReview) {
-      return res.status(500).json({ message: 'User already has a review for this spot!'});
+      return res.status(500).json({ message: 'User already has a review for this spot! ٩(╬ʘ益ʘ╬)۶'});
     }
 
     const newReview = await Review.create({
@@ -383,7 +383,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const aSpot = await Spot.findByPk(req.params.spotId)
 
     if(!aSpot){
-     res.status(404).json({ message : 'No Spot Found'});
+     res.status(404).json({ message : 'No Spot Found ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
      return next(err)
     }
 
@@ -427,7 +427,7 @@ const { address, city, state, country, lat, lng, name, description, price } = re
 const updateSpot = await Spot.findByPk(req.params.spotId);
 
 if(!updateSpot){
-  const err = new Error(`Could not find a Spot with specified id: ${req.params.spotId}`);
+  const err = new Error(`Could not find a Spot with specified id: ${req.params.spotId} ヾ(｡ꏿ﹏ꏿ)ﾉﾞ`);
   err.statusCode = 404;
   return next(err);
 }
@@ -460,7 +460,7 @@ if(price) {
   updateSpot.price = price;
 }
 await updateSpot.save();
-res.status(200).json({message: 'Edit successful', updateSpot});
+res.status(200).json({message: 'Edit successful °˖✧◝(⁰▿⁰)◜✧˖°', updateSpot});
 });
 
 
@@ -470,14 +470,14 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
   const spotToDelete = await Spot.findByPk(req.params.spotId);
 
   if(!spotToDelete) {
-    return res.status(404).json({ message: 'Spot could not be found' });
+    return res.status(404).json({ message: 'Spot could not be found ヾ(｡ꏿ﹏ꏿ)ﾉﾞ' });
   }
 
   if(user.id !== spotToDelete.ownerId) {
-    return res.status(403).json({ message: 'Woop'})
+    return res.status(403).json({ message: 'Woop, you are not allowed to do that! (ʘ ͜ʖ ʘ)'})
   } else {
     await spotToDelete.destroy(); //include everything else?
-    res.status(200).json({message: 'Successfully deleted'});
+    res.status(200).json({message: 'Trash, successfully taken out. (/￣ー￣)/~~☆’.･.･:★’.･.･:☆'});
   }
 });
 

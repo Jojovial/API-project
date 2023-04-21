@@ -38,7 +38,7 @@ router.get('/current', requireAuth, async (req, res)=> {
     });
 
     if(!reviews.length) {
-        return res.status(404).json({ message: 'No reviews found for current user.'});
+        return res.status(404).json({ message: 'No reviews found for current user. ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
     }
 
     const result = { Reviews: reviews};
@@ -57,7 +57,7 @@ router.post('/:reviewId/images', requireAuth, async(req, res) => {
     });
 
     if(!review) {
-        return res.status(404).json({ message: 'Review could not be found'});
+        return res.status(404).json({ message: 'Review could not be found ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
     }
 
     const existingImages = await ReviewImage.count({
@@ -67,7 +67,7 @@ router.post('/:reviewId/images', requireAuth, async(req, res) => {
     });
 
     if(existingImages >= 10) {
-        return res.status(403).json({ message: 'Maximum number of images for this response was reached'});
+        return res.status(403).json({ message: 'Maximum number of images for this response was reached 	(シ_ _)シ'});
     }
 
     const newImage = await ReviewImage.create({
@@ -88,11 +88,11 @@ router.put('/:reviewId', requireAuth, validateReview, async(req, res) =>{
 
     const editReview = await Review.findByPk(thisReviewId);
     if(!editReview) {
-        return res.status(404).json({ message: 'Review could not be found'});
+        return res.status(404).json({ message: 'Review could not be found ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
     }
 
     if(currentUser !== editReview.userId) {
-        return res.status(403).json({ message: 'Um, awkward this is not your review'});
+        return res.status(403).json({ message: 'Um, awkward this is not your review (ʘ ͜ʖ ʘ)'});
     }
 
     await editReview.update({ review, stars});
@@ -106,16 +106,16 @@ router.delete('/:reviewId', requireAuth, async(req, res) => {
     const deleteReview = await Review.findByPk(thisReviewId);
 
     if(!deleteReview) {
-        return res.status(404).json({ message: 'Review could not be found'});
+        return res.status(404).json({ message: 'Review could not be found. ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
     }
 
     if(currentUser !== deleteReview.userId) {
-        return res.status(403).json({ message: 'Um, you cannot delete what is not yours buddy'});
+        return res.status(403).json({ message: 'Um, you cannot delete what is not yours buddy! (ʘ ͜ʖ ʘ)'});
 
     }
 
     await deleteReview.destroy();
-    return res.status(200).json({ message: 'Badabing, successfully deleted!'});
+    return res.status(200).json({ message: 'Trash, successfully taken out. (/￣ー￣)/~~☆’.･.･:★’.･.･:☆'});
 });
 
 
