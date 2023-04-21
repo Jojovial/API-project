@@ -23,9 +23,9 @@ router.use('/reviews', reviewsRouter);
 /*-Bookings-Router-*/
 // router.use('/bookings', bookingsRouter);
 /*-Review-Images-Router*/
-// router.use('/review-images', reviewImagesRouter);
+router.use('/review-images', reviewImagesRouter);
 /*-Spot-Images-Router*/
-// router.use('/spot-images', spotImagesRouter);
+router.use('/spot-images', spotImagesRouter);
 
 
 
