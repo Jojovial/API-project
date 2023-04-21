@@ -131,7 +131,7 @@ router.get('/:spotId/reviews', async (req, res) => {
   }
 });
 
-/*-Get Spots of Current User-*/
+/*-Get Spots of Current User-*/ //refactor?
 router.get('/current', requireAuth, async (req, res) => {
   const user = req.user.id;
   const currentSpots = await Spot.findAll({
@@ -235,7 +235,7 @@ router.get('/:spotId', async (req, res, next) =>{
   res.status(200).json({thisSpot});
 });
 
-/*-Get All the Spots-*/
+/*-Get All the Spots-*/ //refactor?
 router.get('/', async (req, res, next) => {
     const spots = await Spot.findAll();
     const spotImages = await SpotImage.findAll();
