@@ -107,7 +107,7 @@ router.get('/:spotId/bookings', requireAuth, async(req, res) => {
     res.status(200).json(result);
 });
 
-/*-Get Review by SpotId-*/
+/*-Get All Review by SpotId-*/
 router.get('/:spotId/reviews', async (req, res) => {
   try {
     const { spotId } = req.params;
