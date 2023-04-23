@@ -220,7 +220,7 @@ router.get('/:spotId', async (req, res, next) =>{
     thisSpot.numReviews = 'No reviews ٩(ఠ益ఠ)۶'
   }
 
-  res.status(200).json({thisSpot});
+  res.status(200).json(thisSpot);
 });
 
 
@@ -288,7 +288,7 @@ const result = { Spots: [], page, size };
 
 for (const spot of allSpots) {
   const spotImage = await SpotImage.findOne({ where: { spotId: spot.id } });
-  const image = spotImage ? spotImage.url : "No images ;( available";
+  const image = spotImage ? spotImage.url : "No images (╯︵╰,)";
   let total = 0;
   let length = 0;
 
@@ -299,7 +299,7 @@ for (const spot of allSpots) {
     }
   }
 
-  const avgRating = length ? total / length : "Has not been rated yet ;(";
+  const avgRating = length ? total / length : "No ratings (ಥ﹏ಥ)";
   result.Spots.push({ ...spot.toJSON(), avgRating, previewImage: image });
 }
 
@@ -360,7 +360,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         ) {
           errors.endDate = 'End date conflits with an existing booking';
         }
-        return res.status(403).json({ message: 'Sorry, this spot is already booked for the specified dates', errors});
+        return res.status(403).json({ message: 'Sorry, this spot is already booked for the specified dates', errors:errors});
       }
 
       if(new Date(startDate) >= new Date(endDate)) {
@@ -459,11 +459,26 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
 /*-Edit A Spot-*/
 router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
 const { address, city, state, country, lat, lng, name, description, price } = req.body;
+const spotId = parseInt(req.params.spotId);
+
+if(isNaN(spotId)) {
+  const err = new Error(`Invalid spotId: ${req.params.spotId}`);
+  err.statusCode = 400;
+  return next(err);
+}
+
 const updateSpot = await Spot.findByPk(req.params.spotId);
+
 
 if(!updateSpot){
   const err = new Error(`Could not find a Spot with specified id: ${req.params.spotId} ヾ(｡ꏿ﹏ꏿ)ﾉﾞ`);
   err.statusCode = 404;
+  return next(err);
+}
+
+if(updateSpot.ownerId !== req.user.id) {
+  const err = new Error('You are not authorized to update this spot! ٩(╬ʘ益ʘ╬)۶');
+  err.statusCode = 401;
   return next(err);
 }
 
@@ -495,7 +510,7 @@ if(price) {
   updateSpot.price = price;
 }
 await updateSpot.save();
-res.status(200).json({message: 'Edit successful °˖✧◝(⁰▿⁰)◜✧˖°', updateSpot});
+res.status(200).json({message: 'Edit successful °˖✧◝(⁰▿⁰)◜✧˖°', Spot: updateSpot});
 });
 
 
