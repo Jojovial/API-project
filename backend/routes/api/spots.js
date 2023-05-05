@@ -486,59 +486,53 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
 
 /*-Edit A Spot-*/
 router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
-const { address, city, state, country, lat, lng, name, description, price } = req.body;
-const spotId = parseInt(req.params.spotId);
+  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const spotId = parseInt(req.params.spotId);
 
-if(isNaN(spotId)) {
-  const err = new Error(`Invalid spotId: ${req.params.spotId}`);
-  err.statusCode = 400;
-  return next(err);
-}
+  if (isNaN(spotId)) {
+    const err = new Error(`Invalid spotId: ${req.params.spotId}`);
+    err.status = 400;
+    return next(err);
+  }
 
-const updateSpot = await Spot.findByPk(req.params.spotId);
+  const updateSpot = await Spot.findOne({ where: { id: spotId, ownerId: req.user.id } });
 
+  if (!updateSpot) {
+    const err = new Error(`Spot couldn't be found`);
+    err.status = 404;
+    return next(err);
+  }
 
-if(!updateSpot){
-  const err = new Error(`Could not find a Spot with specified id: ${req.params.spotId} ヾ(｡ꏿ﹏ꏿ)ﾉﾞ`);
-  err.statusCode = 404;
-  return next(err);
-}
-
-if(updateSpot.ownerId !== req.user.id) {
-  const err = new Error('You are not authorized to update this spot! ٩(╬ʘ益ʘ╬)۶');
-  err.statusCode = 401;
-  return next(err);
-}
-
-if (address){
-  updateSpot.address = address;
-}
-if (city) {
-  updateSpot.city = city;
-}
-if (state) {
-  updateSpot.state = state;
-}
-if(country) {
-  updateSpot.state = country;
-}
-if(lat) {
-  updateSpot.lat = lat;
-}
-if(lng) {
-  updateSpot.lng = lng;
-}
-if(name) {
-  updateSpot.name = name;
-}
-if(description) {
-  updateSpot.description = description;
-}
-if(price) {
-  updateSpot.price = price;
-}
-await updateSpot.save();
-res.status(200).json({message: 'Edit successful °˖✧◝(⁰▿⁰)◜✧˖°', Spot: updateSpot});
+  if (address) {
+    updateSpot.address = address;
+  }
+  if (city) {
+    updateSpot.city = city;
+  }
+  if (state) {
+    updateSpot.state = state;
+  }
+  if (country) {
+    updateSpot.country = country;
+  }
+  if (lat) {
+    updateSpot.lat = lat;
+  }
+  if (lng) {
+    updateSpot.lng = lng;
+  }
+  if (name) {
+    updateSpot.name = name;
+  }
+  if (description) {
+    updateSpot.description = description;
+  }
+  if (price) {
+    updateSpot.price = price;
+  }
+  await updateSpot.save();
+  const updatedSpot = await Spot.findByPk(spotId);
+  res.status(200).json({ message: 'Edit successful °˖✧◝(⁰▿⁰)◜✧˖°', Spot: updatedSpot });
 });
 
 
