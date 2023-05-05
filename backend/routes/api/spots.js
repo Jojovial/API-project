@@ -411,6 +411,34 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
     });
 
     res.status(201).json(newReview);
+});router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
+  const { review, stars } = req.body;
+  const currentUserId = req.user.id;
+  const currentSpotId = req.params.spotId;
+
+  const spot = await Spot.findByPk(currentSpotId);
+  if(!spot) {
+    return res.status(404).json({ message: 'Spot could not be found. ヾ(｡ꏿ﹏ꏿ)ﾉﾞ'});
+  }
+
+  const checkReview = await Review.findOne({
+    where: {
+      userId: currentUserId,
+      spotId: currentSpotId
+    }
+  });
+  if(checkReview) {
+    return res.status(500).json({ message: 'User already has a review for this spot! ٩(╬ʘ益ʘ╬)۶'});
+  }
+
+  const newReview = await Review.create({
+    userId: currentUserId,
+    spotId: req.params.spotId,
+    review,
+    stars
+  });
+
+  res.status(201).json(newReview);
 });
 
 /*-Create an Image For a Spot*/
