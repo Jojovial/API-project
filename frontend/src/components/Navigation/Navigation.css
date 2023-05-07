@@ -1,20 +1,100 @@
 .hidden {
     display: none;
+    position: absolute;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.Navigation-Wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: solid gray 3px;
+    height: 4rem;
+
+    padding-bottom: 1rem;
+    margin-right: 35px;
+    margin-top: 20px;
+}
+
+#Profile-Wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 50px;
+}
+
+#Modal-Links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#Modal-Links:hover {
+    cursor: pointer;
+}
+
+#Home {
+    font-size: 34px;
+}
+
+#Profile-Bars {
+    display: flex;
+    font-size: 1.5rem;
+    color: blue;
+    width: 1rem;
+    padding-right: 1rem;
+    margin-top: .2rem;
+
+}
+
+#Profile-Button {
+    font-size: 30px;
+    color: rgb(11, 121, 255);
+    display: flex;
+    justify-content: flex-end;
+    margin-right: .4rem;
+
+}
+
+#Profile-Button:hover {
+    cursor: pointer;
+}
+
+#LogOut-Button {
+    border-radius: 40px;
+    font-size: 17px;
+    border: solid 2px blue;
+    color: rgb(11, 121, 255);
+    width: 7rem;
+    height: 2rem;
+    margin: .7rem 0rem;
+}
+
+#LogOut-Button:hover {
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    border: red solid;
+    background: rgb(238, 249, 255);
+    text-align: end;
+    color:rgb(11, 121, 255);
+    font-size: 17px;
+    width: 7rem;
+    padding: .1rem;
 }
 
 
-.nav-list li {
-    list-style: none;
-}
 
 
-.nav-home {
-    text-decoration: none;
-}
 
-ul {
+/* ul {
     display: flex;
     flex-direction: row;
     list-style: none;
     text-decoration: none;
-}
+} */

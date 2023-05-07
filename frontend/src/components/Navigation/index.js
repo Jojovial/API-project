@@ -9,14 +9,16 @@ function Navigation({ isLoaded }){
 
   return (
     <ul>
+      <div className="Navigation-Wrapper">
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink className="links" id="Home" exact to="/">Home</NavLink>
       </li>
       {isLoaded && (
-        <li>
+        <li id="Profile-Wrapper">
           <ProfileButton user={sessionUser} />
         </li>
       )}
+      </div>
     </ul>
   );
 }
