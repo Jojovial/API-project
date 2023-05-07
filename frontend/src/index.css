@@ -2,6 +2,7 @@
 * {
     list-style: none;
     margin: 0;
+    padding: 0;
 }
 
 .links {
@@ -12,6 +13,6 @@
 .buttons{
     border-radius: 30px;
     border: solid 1.9px blue;
-    
+
     background-color: rgb(238, 249, 255);
 }

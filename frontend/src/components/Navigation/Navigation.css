@@ -7,6 +7,8 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    padding: .3rem;
+    margin-right: .3rem;
 }
 
 .Navigation-Wrapper {
@@ -15,7 +17,7 @@
     align-items: flex-start;
     border-bottom: solid gray 3px;
     height: 4rem;
-
+    width: 100%;
     padding-bottom: 1rem;
     margin-right: 35px;
     margin-top: 20px;
@@ -39,6 +41,7 @@
 
 #Home {
     font-size: 34px;
+    margin-left: 1rem;
 }
 
 #Profile-Bars {
