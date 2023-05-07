@@ -11,3 +11,10 @@
 .nav-home {
     text-decoration: none;
 }
+
+ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    text-decoration: none;
+}
