@@ -24,7 +24,7 @@ const SpotsIndex = () => {
           return (
             <div key={spot.id} id="Spots">
               <img
-                src="/skypiea.png"
+                src={spot.previewImage}
                 id="Spot-Image"
                 alt="Spot"
               ></img>
