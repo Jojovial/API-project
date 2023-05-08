@@ -67,6 +67,10 @@
     cursor: pointer;
 }
 
+#Profile-Bars:hover {
+    cursor: pointer;
+}
+
 #LogOut-Button {
     border-radius: 40px;
     font-size: 17px;
