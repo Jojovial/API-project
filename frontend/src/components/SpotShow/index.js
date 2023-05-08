@@ -9,9 +9,12 @@ const SpotShow = () => {
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots[spotId]);
 
+
     useEffect(() => {
         dispatch(thunkASpot(spotId))
-    }, [dispatch]);
+    }, [dispatch, spotId]);
+
+    console.log("spot",spot);
 
     if(!spot) {
         return (
@@ -24,9 +27,10 @@ const SpotShow = () => {
             <h2 id="Spot-Name">{spot.name}</h2>
             <h4 id="Spot-Location">{spot.city}, {spot.state}, {spot.country}</h4>
          <div className="Photo-Gallery">
-         {Array.isArray(spot.SpotImages) && spot.SpotImages.map(image => (<img src={image.url} alt={image.altText} key={image.id} />))}
-         </div>
-         <div className="Spot-Info">
+         {/* {Array.isArray(spot.SpotImages) && spot.SpotImages.map(image => (<li className="Other-Images"><img src={image.url} alt={image.altText}/></li>))} */}
+         {typeof spot.SpotImages === 'string' && <li className="Main-Image"><img src={spot.SpotImages} alt={spot.name} /></li>}
+        </div>
+        <div className="Spot-Info">
             <div className="Description">
                 <h2>Wanted By : {spot.Owner.firstName} {spot.Owner.lastName}</h2>
                 <p>{spot.description}</p>

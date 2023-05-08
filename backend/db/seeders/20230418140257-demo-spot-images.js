@@ -16,6 +16,11 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 1,
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105233163300642888/SkypieaIslands.webp',
+        preview: true
+      },
+      {
         spotId: 2,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105233683276898385/5b14903a339c68dd4010289dbdfdada4.jpg',
         preview: true,
