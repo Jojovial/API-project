@@ -15,10 +15,10 @@ export const getSpots = (spots) => {
 };
 
 /*-Get A Spot-*/
-export const getASpot = (spots) => {
+export const getASpot = (spot) => {
     return {
         type: GET_A_SPOT,
-        spots
+        spot
     }
 };
 

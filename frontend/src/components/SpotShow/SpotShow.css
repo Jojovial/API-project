@@ -1,0 +1,21 @@
+#Spot-Container {
+    margin: 1rem 2rem;
+}
+
+#Spot-Name, #Spot-Location {
+    margin: 1rem;
+}
+
+#Reserve-Button {
+
+
+    margin-top: 1rem;
+    border-radius: 30px;
+    border: none;
+    color: rgb(0, 6, 175);
+    background-color: rgb(148, 169, 239);
+    height: 2.5rem;
+    padding: .4rem;
+    font-size: 1.5rem;
+
+}

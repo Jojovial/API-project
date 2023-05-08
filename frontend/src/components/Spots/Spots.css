@@ -1,0 +1,28 @@
+#Spots-Container {
+    display:  flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+
+#Spot{
+    width: 1rem;
+    padding: 100%;
+}
+
+.Spot-Info {
+    color: blue;
+    font-size: 20px;
+
+}
+
+#Top {
+    display: flex;
+    text-align: end;
+
+}
+
+#Spot-Image {
+    width: 400px;
+}
