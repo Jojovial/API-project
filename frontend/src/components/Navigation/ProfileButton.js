@@ -41,8 +41,9 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-      <i className="fa-solid fa-user"></i>
+      <button className="buttons" onClick={openMenu}>
+      <i id="Profile-Bars" className="fa-solid fa-bars"></i>
+      <i id="Profile-Button" className="fa-solid fa-user"></i>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -51,7 +52,7 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button id="LogOut-Button" onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (

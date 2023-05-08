@@ -1,0 +1,44 @@
+.SignUp{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 28rem;
+    width: 26em;
+    padding: 2rem;
+    padding-top: .2rem;
+    margin: 4rem;
+    margin-top: 1rem;
+}
+
+
+.Form {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+input {
+    border: none;
+    display: flex;
+    justify-content: flex-end;
+    box-shadow: 2px 2px 5px 1px blue;
+    padding: .5rem;
+    width: 25rem;
+    margin-bottom: 1rem;
+
+}
+
+#SignUp-Button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    border-radius: 30px;
+    border: none;
+    color: rgb(0, 6, 175);
+    background-color: rgb(148, 169, 239);
+    height: 2.5rem;
+    padding: .4rem;
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+
