@@ -49,16 +49,22 @@ export const thunkASpot = (spotId) => async (dispatch, getState) => {
 };
 
 /*- Create A Spot Thunk - */
-export const thunkACreate = (newSpot) => async (dispatch) => {
-    const response = await csrfFetch('/api/spots', {
-        method: 'POST',
-        headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify(newSpot)
-    })
-    const spotResponse = await response.json();
-    dispatch(addASpot(spotResponse));
-    return spotResponse;
+export const thunkACreate = (spot) => async (dispatch) => {
+    let res;
+    try {
+        res = await csrfFetch('/api/spots', {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify(spot)
+        });
 
+        const spotResponse = await res.json();
+        dispatch(addASpot(spotResponse));
+        return spotResponse;
+    } catch(err) {
+      const errors = await err.json();
+      return errors;
+    }
 };
 
 /* - Reducer(s) - */
