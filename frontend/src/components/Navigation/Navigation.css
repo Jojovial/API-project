@@ -21,6 +21,7 @@
     padding-bottom: 1rem;
     margin-right: 35px;
     margin-top: 20px;
+
 }
 
 #Profile-Wrapper {
@@ -28,6 +29,7 @@
     flex-direction: column;
     justify-content: flex-start;
     height: 50px;
+    z-index: 1;
 }
 
 #Modal-Links {
@@ -61,7 +63,7 @@
     display: flex;
     justify-content: flex-end;
     margin-right: .4rem;
-    
+
 
 }
 

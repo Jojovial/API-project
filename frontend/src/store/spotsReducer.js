@@ -18,7 +18,7 @@ export const getSpots = (spots) => {
 export const getASpot = (spot) => {
     return {
         type: GET_A_SPOT,
-        spot
+        currentSpot: spot
     }
 };
 
@@ -51,7 +51,7 @@ const spotsReducer = (state = initialState, action) => {
             });
             return {...state, ...newState};
         case GET_A_SPOT:
-            return {...state, [action.spot.id]: action.spot};
+            return {...state, currentSpot: action.currentSpot};
         default:
             return state;
     }

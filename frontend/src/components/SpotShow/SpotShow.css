@@ -6,6 +6,13 @@
     margin: 1rem;
 }
 
+
+.Photo-Gallery {
+    display: flex;
+    flex-direction: row;
+
+
+}
 #Reserve-Button {
 
     display: flex;
@@ -18,11 +25,16 @@
     padding: .4rem;
     font-size: 1.5rem;
     width: 10rem;
-    
-
 }
 
 .Reservation {
     display: flex;
     justify-content: flex-end;
+}
+
+.Other-Images {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
 }
