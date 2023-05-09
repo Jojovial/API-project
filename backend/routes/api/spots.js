@@ -185,8 +185,10 @@ router.get('/:spotId', async (req, res, next) =>{
     }
   });
   let reviews = await Review.findAll();
-  let images = await SpotImage.findOne({
-    where: { spotId },
+  let images = await SpotImage.findAll({
+    where: {
+        spotId: spotId
+    },
     attributes: {
       exclude: ['spotId', 'createdAt', 'updatedAt']
     }
@@ -203,17 +205,22 @@ router.get('/:spotId', async (req, res, next) =>{
       }
   }
   /*-Image Preview-*/
-  let imagePreview = images ? images.toJSON().url : null;
+  // let imagePreview = images ? images.toJSON().url : null;
+  let imagesArr = [];
+    for(let image of images) {
+      image = image.toJSON();
+      imagesArr.push(image);
+    }
 
   /*-Reassigned-Plus-Errors-*/
   thisSpot.numReviews = length;
   thisSpot.avgStarRating = total / length;
-  thisSpot.SpotImages = imagePreview;
+  thisSpot.SpotImages = imagesArr;
   thisSpot.Owner = aUser;
   if(!thisSpot.avgStarRating) {
     thisSpot.avgStarRating = 'Has not been rated yet (ಥ﹏ಥ)'
   }
-  if(!imagePreview) {
+  if(!imagesArr.length) {
     thisSpot.SpotImages = 'No images (╯︵╰,)  '
   }
   if(!thisSpot.numReviews) {

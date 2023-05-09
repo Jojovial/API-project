@@ -21,14 +21,17 @@ const SpotShow = () => {
             <h2>Loading...</h2>
         )
     }
+
     return (
         <>
         <div id="Spot-Container">
             <h2 id="Spot-Name">{spot.name}</h2>
             <h4 id="Spot-Location">{spot.city}, {spot.state}, {spot.country}</h4>
          <div className="Photo-Gallery">
-         {/* {Array.isArray(spot.SpotImages) && spot.SpotImages.map(image => (<li className="Other-Images"><img src={image.url} alt={image.altText}/></li>))} */}
          {typeof spot.SpotImages === 'string' && <li className="Main-Image"><img src={spot.SpotImages} alt={spot.name} /></li>}
+         {Array.isArray(spot.SpotImages) && spot.SpotImages.map(image => (<li className="Other-Images"><img src={image.url} alt={image.altText}/></li>))}
+
+
         </div>
         <div className="Spot-Info">
             <div className="Description">
