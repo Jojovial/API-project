@@ -57,7 +57,7 @@ export const thunkACreate = (spot) => async (dispatch) => {
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(spot)
         });
-
+        console.log("where is poop town",res)
         const spotResponse = await res.json();
         dispatch(addASpot(spotResponse));
         return spotResponse;
@@ -81,7 +81,8 @@ const spotsReducer = (state = initialState, action) => {
         case GET_A_SPOT:
             return {...state, currentSpot: action.currentSpot};
         case ADD_A_SPOT:
-            return {...state, newSpot: action.spot};
+            console.log("CREATE A SPOT ACTION",action)
+            return {...state, [action.newSpot.id]: action.newSpot};
         default:
             return state;
     }

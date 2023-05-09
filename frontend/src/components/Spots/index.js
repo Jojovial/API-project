@@ -22,6 +22,7 @@ const SpotsIndex = () => {
         return <h2>Loading...</h2>;
       }
       const spots = Object.values(spotsObj);
+      console.log("here is spots",spots);
       return (
         <>
       <div id="Spots-Container">

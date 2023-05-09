@@ -30,14 +30,14 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .isLength({ min: 1, max: 50 })
     .withMessage('Country is required'),
-  check('lat')
-    .exists({ checkFalsy: true })
-    .isDecimal()
-    .withMessage('Invalid latitude'),
-  check('lng')
-    .exists({ checkFalsy: true })
-    .isDecimal()
-    .withMessage('Invalid longtitude'),
+  // check('lat')
+  //   .exists({ checkFalsy: true })
+  //   .isDecimal()
+  //   .withMessage('Invalid latitude'),
+  // check('lng')
+  //   .exists({ checkFalsy: true })
+  //   .isDecimal()
+  //   .withMessage('Invalid longtitude'),
   check('name')
     .exists({ checkFalsy: true })
     .isLength({ min: 1, max: 70 })

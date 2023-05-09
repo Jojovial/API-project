@@ -1,5 +1,6 @@
 import SpotForm from "../SpotForm";
 
+
 const CreateASpot = () => {
     const spot = {
         country: '',
