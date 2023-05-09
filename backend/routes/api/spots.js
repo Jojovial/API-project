@@ -286,7 +286,6 @@ if (Object.keys(errors).length) {
 
 const query = { limit: size, offset: size * (page - 1) };
 const allSpots = await Spot.findAll({
-  where: { lat: { [Op.between]: [-90, lat] }, lng: { [Op.between]: [-180, lng] }, price: { [Op.between]: [0, price] } },
   ...query,
 });
 
