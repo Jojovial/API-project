@@ -486,7 +486,7 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
       price
   });
 
-  res.status(201).json(newSpot);
+  res.status(201).json({Spot:newSpot});
 });
 
 

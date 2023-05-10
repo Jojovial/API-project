@@ -26,6 +26,14 @@ const SpotForm = ({ spot, formType }) => {
         e.preventDefault();
         setErrors({});
 
+        if(
+           !previewImage.includes('jpg') &&
+           !previewImage.includes('png') &&
+           !previewImage.includes('jpeg')
+        ) {
+            setErrors({previewImage: 'Preview Image URL must be valid type'})
+        };
+
         spot = {
            id: spot.id,
             country,
@@ -144,7 +152,8 @@ const SpotForm = ({ spot, formType }) => {
                     placeholder="Preview Image Url"
                 />
                 {!previewImage ? <div className="errors">Preview image is required</div>: null}
-                {/* come back to {previewImage.includes('jpg' || 'png' || 'jpeg') ? null: <div className="errors">Image URL must be valid type. </div>} */}
+                {!previewImage.includes("jpg") && !previewImage.includes("png") && !previewImage.includes("jpeg") ?
+                <div className="errors">Preview Image URL must be a valid image type</div> : null}
                 <input
                     type="text"
                     value={image2}
