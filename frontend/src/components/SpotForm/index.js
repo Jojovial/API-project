@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { thunkACreate } from "../../store/spotsReducer";
+import { thunkACreate, thunkAEdit } from "../../store/spotsReducer";
 
 
 const SpotForm = ({ spot, formType }) => {
@@ -27,7 +27,7 @@ const SpotForm = ({ spot, formType }) => {
         setErrors({});
 
         spot = {
-            ...spot,
+           id: spot.id,
             country,
             address,
             city,
@@ -41,17 +41,23 @@ const SpotForm = ({ spot, formType }) => {
             image4,
             image5
         };
-
+        console.log('spot id', spot);
         if(formType === 'Update your Spot') {
+            const editSpot = await dispatch(thunkAEdit(spot))
+            console.log('thunkAEdit?', spot);
+
+            spot = editSpot;
+            console.log('edited spot', spot.Spot.id);
         } else if (formType === 'Create a new Spot'){
         const newSpot = await dispatch(thunkACreate(spot));
-            spot = newSpot
+            spot = newSpot;
         }
 
+        console.log('spot id after', spot.id)
         if(spot.errors) {
             setErrors(spot.errors)
         } else {
-            history.push(`/spots/${spot.id}`);
+            history.push(`/spots/${spot.Spot.id}`);
         }
 
     }
@@ -138,7 +144,7 @@ const SpotForm = ({ spot, formType }) => {
                     placeholder="Preview Image Url"
                 />
                 {!previewImage ? <div className="errors">Preview image is required</div>: null}
-                {/* {previewImage.includes('jpg' || 'png' || 'jpeg') ? null: <div className="errors">Image URL must be valid type. </div>} */}
+                {/* come back to {previewImage.includes('jpg' || 'png' || 'jpeg') ? null: <div className="errors">Image URL must be valid type. </div>} */}
                 <input
                     type="text"
                     value={image2}
