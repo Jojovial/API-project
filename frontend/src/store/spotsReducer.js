@@ -2,9 +2,11 @@ import { csrfFetch } from "./csrf";
 
 /* - Action Types - */
 const GET_SPOTS = 'spots/getSpots';
+const GET_USER_SPOTS = 'spots/getUserSpots';
 const GET_A_SPOT = 'spots/getASpot';
 const ADD_A_SPOT = 'spots/addASpot';
 const EDIT_A_SPOT = 'spots/editASpot';
+const DELETE_A_SPOT = 'spots/deleteASpot';
 
 /*- Action Creators - */
 
@@ -15,6 +17,15 @@ export const getSpots = (spots) => {
         spots
     }
 };
+
+/*-Get Current Spots of User-*/
+export const getUserSpots = (spots) => {
+    return {
+        type: GET_USER_SPOTS,
+        spots
+    }
+};
+
 
 /*-Get A Spot-*/
 export const getASpot = (spot) => {
@@ -40,6 +51,14 @@ export const editASpot = (spot) => {
     }
 }
 
+/*- Delete A Spot -*/
+export const deleteASpot = (spotId) => {
+    return {
+        type: DELETE_A_SPOT,
+        spotId
+    }
+}
+
 /* - Thunks - */
 
 /*- All Spots Thunk - */
@@ -49,6 +68,13 @@ export const thunkAllSpots = () => async (dispatch) => {
     console.log("after response", spots);
     dispatch(getSpots(spots));
 };
+
+/*- Current Spots for User Thunkacalicious -*/
+export const thunkAUser = () => async (dispatch) => {
+    const res = await csrfFetch('/api/spots/current')
+    const spots = await res.json();
+    dispatch(getUserSpots(spots));
+}
 
 /*- A Spot Thunk - */
 export const thunkASpot = (spotId) => async (dispatch, getState) => {
@@ -96,7 +122,10 @@ export const thunkAEdit = (spot) => async (dispatch) => {
         const errors = await err.json();
         return errors;
     }
-}
+};
+
+/*-Delete a Spot ThunkaWonka-*/ 
+
 /* - Reducer(s) - */
 const initialState = {};
 const spotsReducer = (state = initialState, action) => {
@@ -108,6 +137,10 @@ const spotsReducer = (state = initialState, action) => {
                newState[spot.id] = spot;
             });
             return {...state, ...newState};
+        case GET_USER_SPOTS:
+            const currentSpots = {};
+            action.spots.Spots.forEach(spot => currentSpots[spot.id] = spot);
+            return {...state, ...currentSpots}
         case GET_A_SPOT:
             return {...state, currentSpot: action.currentSpot};
         case ADD_A_SPOT:
