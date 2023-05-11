@@ -179,7 +179,9 @@ const SpotForm = ({ spot, formType }) => {
                     placeholder="Image URL"
                 />
             </label>
-            <button type="submit">Create Spot</button>
+            <button type="submit">
+            {formType === "Create a new Spot" ? "Create your spot" : "Update your spot"}
+            </button>
         </form>
         </>
     );
