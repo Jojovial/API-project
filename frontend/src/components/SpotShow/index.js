@@ -7,7 +7,7 @@ import './SpotShow.css';
 const SpotShow = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    const spot = useSelector(state => state.spots.currentSpot);
+    const spot = useSelector(state => state.spots.singleSpot);
 
 
     useEffect(() => {

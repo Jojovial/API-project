@@ -8,7 +8,7 @@ const EditASpot = () => {
     const { spotId } = useParams();
     console.log('here is spotId', spotId);
     const dispatch = useDispatch();
-    const spot = useSelector(state => state.spots.currentSpot);
+    const spot = useSelector(state => state.spots.singleSpot);
     console.log('spot gottem', spot);
     useEffect(() => {
         dispatch(thunkASpot(spotId))
@@ -19,10 +19,12 @@ const EditASpot = () => {
     }
 
  return (
+
     <SpotForm
     spot={spot}
     formType='Update your Spot'
     />
+
  );
 
 };

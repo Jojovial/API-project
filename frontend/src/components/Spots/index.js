@@ -6,7 +6,9 @@ import './Spots.css';
 const SpotsIndex = () => {
     const [previewImage, setPreviewImage] = useState(false);
     const dispatch = useDispatch();
-    const spotsObj = useSelector(state => state.spots);
+    const spotsObj = useSelector(state => {
+      return state.spots.allSpots
+    });
 
     useEffect(() => {
       dispatch(thunkAllSpots());

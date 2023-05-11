@@ -2,26 +2,23 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { thunkAUser } from '../../store/spotsReducer';
+import DeleteASpot from '../DeleteASpot';
+import OpenModalButton from '../OpenModalButton';
 
 const CurrentUserSpots = () => {
     const dispatch = useDispatch();
-    const userSpotsObj = useSelector(state => state.spots.userSpots);
-
+    const currentSpots = useSelector(state =>  state.spots.allSpots);
 
     useEffect(() => {
         dispatch(thunkAUser())
     }, [dispatch]);
 
-    if(!userSpotsObj) return (
+    if(!currentSpots) return (
         <h3>Loading Beep Boop..</h3>
     );
 
 
-    const spots = Object.values(userSpotsObj);
 
-    if(!spots.length) return (
-        <h3>You have no spots! </h3>
-    )
 
     return (
         <>
@@ -30,10 +27,10 @@ const CurrentUserSpots = () => {
                 <button>Create New Spot</button>
             </Link>
             <div id="Spots-Container">
-            {spots.map((spot) => {
+            {Object.values(currentSpots).map((spot) => {
                 return (
                     <>
-                        <div id="Spot">
+                        <div key={spot.id} id="Spot">
                             <img
                             src={spot.previewImage}
                             id="Spot-Image"
@@ -45,7 +42,10 @@ const CurrentUserSpots = () => {
                                 <p className="Spot-Info" id="Spot-Rating">{spot.avgRating}</p>
                             </div>
                                 <Link exact to={`/spots/${spot.id}/edit`}>Update</Link>
-                                {/*Delete Button Here*/}
+                                <OpenModalButton
+                                        buttonText='Delete'
+                                        modalComponent={<DeleteASpot spotId={spot.id} />}
+                                />
                             </div>
                     </>
                 )
