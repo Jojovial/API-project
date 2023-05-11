@@ -140,7 +140,7 @@ export const thunkADelete = (spotId) => async (dispatch, getState) => {
             method: 'DELETE'
         });
         const deleteSpot = await res.json();
-        dispatch(deleteASpot(deleteSpot));
+        dispatch(deleteASpot(spotId));
         return deleteSpot
     } catch (err) {
         const errors = await err.json();
@@ -207,17 +207,13 @@ const spotsReducer = (state = initialState, action) => {
             console.log('EDIT_A_SPOT', action.spot);
             const updatedSpot = action.spot;
             return {
-                ...state,
-                allSpots: {
-                    ...state.allSpots,
-                    [updatedSpot.id]: updatedSpot,
-                },
-                singleSpot: updatedSpot,
+              ...state,
+              singleSpot: updatedSpot,
             };
         }
         case DELETE_A_SPOT: {
-            const newSpots = { ...state };
-            delete newSpots[action.spotId]
+            const newSpots = { ...state, allSpots:{...state.allSpots} };
+            delete newSpots.allSpots[action.spotId]
             return newSpots
         }
         default:
