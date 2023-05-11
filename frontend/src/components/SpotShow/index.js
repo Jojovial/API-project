@@ -1,4 +1,5 @@
 import { thunkASpot } from "../../store/spotsReducer";
+import { thunkAllReviews } from "../../store/reviewsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -8,20 +9,27 @@ const SpotShow = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots.singleSpot);
-
+    const allReviews = useSelector(state => {
+        console.log('state:', state.reviews);
+        return state.reviews
+    });
+    console.log('All Reviews', allReviews)
 
     useEffect(() => {
         dispatch(thunkASpot(spotId))
+        dispatch(thunkAllReviews(spotId))
     }, [dispatch, spotId]);
 
     console.log("spot",spot);
 
-    if(!spot) {
+    if(!spot || !allReviews ) {
         return (
             <h2>Loading...</h2>
         )
     }
 
+
+    console.log('After conditional', allReviews);
     return (
         <>
         <div id="Spot-Container">
@@ -36,18 +44,39 @@ const SpotShow = () => {
          {Array.isArray(spot.SpotImages) && spot.SpotImages.map(image => (<li className="Other-Images"><img src={image.url} alt={image.altText}/></li>))}
                     </div>
         <div className="Spot-Info">
-            <div className="Description">
+            <div className="Spot-Owner">
             {spot.Owner && (
              <h2>Wanted By : {spot.Owner.firstName} {spot.Owner.lastName}</h2>)}
                 <p>{spot.description}</p>
             </div>
             <div className="Reservation">
-                <p>{spot.price}</p>
-                <p>{spot.numReviews}</p>
-                <p>{spot.avgStarRating}</p>
+                <p className="Price">{spot.price}</p>
+                <p className="Reviews">{spot.numReviews}</p>
+                <p className="Stars"><i className="fa-solid fa-star"></i>{spot.avgStarRating}</p>
                 <button id="Reserve-Button">Reserve</button>
             </div>
          </div>
+         <div className="Stars-Container">
+            <h3><i className="fa-solid fa-star"></i>{spot.avgStarRating}</h3>
+            <h3>{spot.numReviews}</h3>
+         </div>
+        <div className="Reviews-Container">
+            <ul>
+
+            {!(Object.values(allReviews)) ? <h2>Whatever</h2> : null}
+
+            {Object.values(allReviews).map(review => {
+                     console.log('review:', review);
+                    return (
+                         <li>
+                        <h5>{review.createdAt.slice(0, 10)}</h5>
+                        <p>{review.User.firstName}</p>
+                        <p>{review.review}</p>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
      </div>
     </>
     )
