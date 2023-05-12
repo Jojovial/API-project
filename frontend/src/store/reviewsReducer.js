@@ -112,18 +112,18 @@ const reviewsReducer = (state = {}, action) => {
     console.log('made it into reducer', action)
     switch(action.type) {
         case GET_ALL_REVIEWS:
-            const newReview = {};
-            const reviews = action.reviews.Reviews;
-            console.log('GET_ALL_REVIEWS', reviews);
-            if (reviews.length > 0) {
-              reviews.forEach(review => {
-                newReview[review.id] = review;
-              });
-            } else {
-              newReview[action.reviews.SpotId] = {};
-            }
-            console.log('NEW REVIEW', newReview);
-            return {...state, ...newReview};
+    const newReview = {};
+    const reviews = action.reviews.Reviews;
+    console.log('GET_ALL_REVIEWS', reviews);
+    if (reviews && reviews.length > 0) {
+        reviews.forEach(review => {
+            newReview[review.id] = review;
+        });
+    } else {
+        newReview[action.reviews.SpotId] = {};
+    }
+    console.log('NEW REVIEW', newReview);
+    return {...state, ...newReview};
         case CREATE_REVIEW:
             return {...state, [action.newReview.id]: action.newReview}
         case DELETE_A_REVIEW:

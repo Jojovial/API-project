@@ -205,12 +205,10 @@ const spotsReducer = (state = initialState, action) => {
         }
         case EDIT_A_SPOT: {
             console.log('EDIT_A_SPOT', action.spot);
-            const newSpot = {};
             const updatedSpot = action.spot;
-            newSpot[updatedSpot.id] = updatedSpot;
             return {
               ...state,
-              singleSpot: newSpot,
+              singleSpot: updatedSpot,
             };
         }
         case DELETE_A_SPOT: {

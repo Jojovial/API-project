@@ -25,59 +25,55 @@ const SpotForm = ({ spot, formType }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        const SpotImages = [];
-        spot = {
-           id: spot.id,
-            country,
-            address,
-            city,
-            state: statePlace,
-            description,
-            name,
-            price,
-            SpotImages: [
-                {
-                    preview: true,
-                    url: previewImage
-                },
-                {
-                    preview:false,
-                    url: image2
-                },
-                {
-                    preview:false,
-                    url: image3
-                },
-                {
-                    preview:false,
-                    url: image4
-                },
-                {
-                    preview:false,
-                    url: image5
-                },
-            ]
+        const spotImages = [
+          {
+            preview: true,
+            url: previewImage,
+          },
+          {
+            preview: false,
+            url: image2,
+          },
+          {
+            preview: false,
+            url: image3,
+          },
+          {
+            preview: false,
+            url: image4,
+          },
+          {
+            preview: false,
+            url: image5,
+          },
+        ];
+        const formData = {
+          id: spot.id,
+          country,
+          address,
+          city,
+          state: statePlace,
+          description,
+          name,
+          price,
+          spotImages,
         };
-        console.log('spot id', spot);
-        if(formType === 'Update your Spot') {
-            const editSpot = await dispatch(thunkAEdit(spot))
-            console.log('thunkAEdit?', spot);
-
-            spot = editSpot;
-            console.log('edited spot', spot.Spot.id);
-        } else if (formType === 'Create a new Spot'){
-        const newSpot = await dispatch(thunkACreate(spot));
-            spot = newSpot;
+        if (formType === "Update your Spot") {
+          const editedSpot = await dispatch(thunkAEdit(formData));
+          if (editedSpot.errors) {
+            setErrors(editedSpot.errors);
+          } else {
+            history.push(`/spots/${editedSpot.Spot.id}`);
+          }
+        } else if (formType === "Create a new Spot") {
+          const newSpot = await dispatch(thunkACreate(formData));
+          if (newSpot.errors) {
+            setErrors(newSpot.errors);
+          } else {
+            history.push(`/spots/${newSpot.Spot.id}`);
+          }
         }
-
-        console.log('spot id after', spot.id)
-        if(spot.errors) {
-            setErrors(spot.errors)
-        } else {
-            history.push(`/spots/${spot.Spot.id}`);
-        }
-
-    }
+      };
 
     return(
         <>

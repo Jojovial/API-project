@@ -1,17 +1,17 @@
 import { thunkASpot } from "../../store/spotsReducer";
 import { thunkAllReviews, clearReviews } from "../../store/reviewsReducer";
-import { thunkADeleteReview } from "../../store/reviewsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import './SpotShow.css';
 import OpenModalButton from "../OpenModalButton";
 import ReviewFormModal from "../ReviewFormModal";
+import DeleteReviewModal from "../DeleteReviewModal";
 
 const SpotShow = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    const userId = useSelector(state => state.session.user.id);
+    const userId = useSelector(state => state.session.user?.id);
     const spot = useSelector(state => state.spots.singleSpot);
     const allReviews = useSelector(state => {
         console.log('state:', state.reviews);
@@ -28,13 +28,13 @@ const SpotShow = () => {
 
     console.log("spot",spot);;
 
-    const deleteReview = async (reviewId) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this review?");
-        if (confirmDelete) {
-            await dispatch(thunkADeleteReview(reviewId))
-            dispatch(thunkAllReviews(spotId));
-        }
-    }
+    // const deleteReview = async (reviewId) => {
+    //     const confirmDelete = window.confirm("Are you sure you want to delete this review?");
+    //     if (confirmDelete) {
+    //         await dispatch(thunkADeleteReview(reviewId))
+    //         dispatch(thunkAllReviews(spotId));
+    //     }
+    // }
 
     if(!spot || !allReviews ) {
         return (
@@ -78,19 +78,20 @@ const SpotShow = () => {
   <OpenModalButton
     className="Review-Button"
     buttonText="Post Your Review"
-    modalComponent={<ReviewFormModal spot={spot}/>}
+    modalComponent={<ReviewFormModal spot={spot} onReviewCreated/>}
   />
     {Object.values(allReviews).length > 0 && (
   <ul>
-    {Object.values(allReviews).map((review) => {
+    {Object.values(allReviews).reverse().map((review) => {
       if (!review.User) {
+        console.log('review.User', review.User);
         return (
           <div key={review}>
             <h5>
               {review.createdAt.slice(5, 10)}-{review.createdAt.slice(0, 4)}
             </h5>
             <p>{review.review}</p>
-            {review.userId === userId ? <button>Oh</button> : null}
+            {review.User ? <h2>{review.User.firstName}</h2> : <button>Oh</button>}
           </div>
         );
       } else {
@@ -102,12 +103,10 @@ const SpotShow = () => {
             <p>{review.User.firstName}</p>
             <p>{review.review}</p>
             {review.userId === userId ? (
-              <button
-                className="Delete-Review-Button"
-                onClick={(e) => deleteReview(review.id)}
-              >
-                Delete Review
-              </button>
+            <OpenModalButton
+            buttonText="Delete"
+            modalComponent={<DeleteReviewModal reviewId={review.id} spotId={review.spotId}/>}
+        />
             ) : null}
           </li>
         );

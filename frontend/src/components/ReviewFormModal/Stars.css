@@ -1,0 +1,12 @@
+.empty {
+    color: rgb(186, 176, 176);
+}
+
+.filled {
+    color: blue;
+    border: red;
+}
+
+.Stars{
+    display: flex;
+}
