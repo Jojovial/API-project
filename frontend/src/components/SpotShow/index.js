@@ -1,26 +1,40 @@
 import { thunkASpot } from "../../store/spotsReducer";
-import { thunkAllReviews } from "../../store/reviewsReducer";
+import { thunkAllReviews, clearReviews } from "../../store/reviewsReducer";
+import { thunkADeleteReview } from "../../store/reviewsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import './SpotShow.css';
+import OpenModalButton from "../OpenModalButton";
+import ReviewFormModal from "../ReviewFormModal";
 
 const SpotShow = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const userId = useSelector(state => state.session.user.id);
     const spot = useSelector(state => state.spots.singleSpot);
     const allReviews = useSelector(state => {
         console.log('state:', state.reviews);
         return state.reviews
     });
+
     console.log('All Reviews', allReviews)
 
     useEffect(() => {
         dispatch(thunkASpot(spotId))
+        dispatch(clearReviews())
         dispatch(thunkAllReviews(spotId))
     }, [dispatch, spotId]);
 
-    console.log("spot",spot);
+    console.log("spot",spot);;
+
+    const deleteReview = async (reviewId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this review?");
+        if (confirmDelete) {
+            await dispatch(thunkADeleteReview(reviewId))
+            dispatch(thunkAllReviews(spotId));
+        }
+    }
 
     if(!spot || !allReviews ) {
         return (
@@ -60,26 +74,52 @@ const SpotShow = () => {
             <h3><i className="fa-solid fa-star"></i>{spot.avgStarRating}</h3>
             <h3>{spot.numReviews}</h3>
          </div>
-        <div className="Reviews-Container">
-            <ul>
+         <div className="Reviews-Container">
+  <OpenModalButton
+    className="Review-Button"
+    buttonText="Post Your Review"
+    modalComponent={<ReviewFormModal spot={spot}/>}
+  />
+    {Object.values(allReviews).length > 0 && (
+  <ul>
+    {Object.values(allReviews).map((review) => {
+      if (!review.User) {
+        return (
+          <div key={review}>
+            <h5>
+              {review.createdAt.slice(5, 10)}-{review.createdAt.slice(0, 4)}
+            </h5>
+            <p>{review.review}</p>
+            {review.userId === userId ? <button>Oh</button> : null}
+          </div>
+        );
+      } else {
+        return (
+          <li key={review.id}>
+            <h5>
+              {review.createdAt.slice(5, 10)}-{review.createdAt.slice(0, 4)}
+            </h5>
+            <p>{review.User.firstName}</p>
+            <p>{review.review}</p>
+            {review.userId === userId ? (
+              <button
+                className="Delete-Review-Button"
+                onClick={(e) => deleteReview(review.id)}
+              >
+                Delete Review
+              </button>
+            ) : null}
+          </li>
+        );
+      }
+    })}
+  </ul>
+)}
+</div>
 
-            {!(Object.values(allReviews)) ? <h2>Whatever</h2> : null}
-
-            {Object.values(allReviews).map(review => {
-                     console.log('review:', review);
-                    return (
-                         <li>
-                        <h5>{review.createdAt.slice(0, 10)}</h5>
-                        <p>{review.User.firstName}</p>
-                        <p>{review.review}</p>
-                        </li>
-                    )
-                })}
-            </ul>
-        </div>
      </div>
-    </>
-    )
-}
+     </>
+     )
+  }
 
 export default SpotShow;

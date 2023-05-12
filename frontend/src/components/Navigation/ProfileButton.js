@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { NavLink } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const [showCreateSpot, setCreateSpot] = useState(false);
+  const sessionUser = useSelector(state => state.session.user);
   const ulRef = useRef();
 
   const openMenu = () => {
@@ -39,8 +42,16 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+  useEffect(() => {
+    if(sessionUser)setCreateSpot(true)
+    if(!sessionUser)setCreateSpot(false)
+  }, [sessionUser])
+
   return (
     <>
+      <NavLink exact to="/spots/new" id="New-Spot-Link">
+        {showCreateSpot ? (<>Create a New Spot</>): null}
+      </NavLink>
       <button className="buttons" onClick={openMenu}>
       <i id="Profile-Bars" className="fa-solid fa-bars"></i>
       <i id="Profile-Button" className="fa-solid fa-user"></i>
@@ -52,6 +63,7 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
+              <NavLink exact to="/spots/current" onClick={closeMenu}>Manage Spots</NavLink>
               <button id="LogOut-Button" onClick={logout}>Log Out</button>
             </li>
           </>

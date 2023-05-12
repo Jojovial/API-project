@@ -7,33 +7,25 @@ import { thunkACreate, thunkAEdit } from "../../store/spotsReducer";
 const SpotForm = ({ spot, formType }) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const [address, setAddress] = useState(spot?.address || '');
-    const [city, setCity] = useState(spot?.city || '');
-    const [statePlace, setStatePlace] = useState(spot?.state || '');
-    const [country, setCountry] = useState(spot?.country || '');
-    const [name, setName] = useState(spot?.name || '');
-    const [description, setDescription] = useState(spot?.description || '');
-    const [price, setPrice] = useState(spot?.price || '');
-    const [previewImage, setPreviewImage] = useState(spot?.previewImage || '');
-    const [image2, setImage2] = useState(spot?.image2 || '');
-    const [image3, setImage3] = useState(spot?.image3 || '');
-    const [image4, setImage4] = useState(spot?.image4 || '');
-    const [image5, setImage5] = useState(spot?.image5 || '');
+    const [address, setAddress] = useState(spot?.address);
+    const [city, setCity] = useState(spot?.city);
+    const [statePlace, setStatePlace] = useState(spot?.state);
+    const [country, setCountry] = useState(spot?.country);
+    const [name, setName] = useState(spot?.name);
+    const [description, setDescription] = useState(spot?.description);
+    const [price, setPrice] = useState(spot?.price);
+    const [previewImage, setPreviewImage] = useState(spot?.previewImage);
+    const [image2, setImage2] = useState(spot?.image2);
+    const [image3, setImage3] = useState(spot?.image3);
+    const [image4, setImage4] = useState(spot?.image4);
+    const [image5, setImage5] = useState(spot?.image5);
     const [errors, setErrors] = useState({});
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-
-        if(
-           !previewImage.includes('jpg') &&
-           !previewImage.includes('png') &&
-           !previewImage.includes('jpeg')
-        ) {
-            setErrors({previewImage: 'Preview Image URL must be valid type'})
-        };
-
+        const SpotImages = [];
         spot = {
            id: spot.id,
             country,
@@ -43,11 +35,28 @@ const SpotForm = ({ spot, formType }) => {
             description,
             name,
             price,
-            previewImage,
-            image2,
-            image3,
-            image4,
-            image5
+            SpotImages: [
+                {
+                    preview: true,
+                    url: previewImage
+                },
+                {
+                    preview:false,
+                    url: image2
+                },
+                {
+                    preview:false,
+                    url: image3
+                },
+                {
+                    preview:false,
+                    url: image4
+                },
+                {
+                    preview:false,
+                    url: image5
+                },
+            ]
         };
         console.log('spot id', spot);
         if(formType === 'Update your Spot') {
@@ -151,9 +160,9 @@ const SpotForm = ({ spot, formType }) => {
                     onChange={(e) => setPreviewImage(e.target.value)}
                     placeholder="Preview Image Url"
                 />
-                {!previewImage ? <div className="errors">Preview image is required</div>: null}
+                {/* {!previewImage ? <div className="errors">Preview image is required</div>: null}
                 {!previewImage.includes("jpg") && !previewImage.includes("png") && !previewImage.includes("jpeg") ?
-                <div className="errors">Preview Image URL must be a valid image type</div> : null}
+                <div className="errors">Preview Image URL must be a valid image type</div> : null} */}
                 <input
                     type="text"
                     value={image2}

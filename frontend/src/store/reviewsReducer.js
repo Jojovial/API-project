@@ -2,8 +2,10 @@ import { csrfFetch } from "./csrf";
 
 const GET_ALL_REVIEWS = 'spots/getAllReviews';
 const GET_CURRENT_USER_REVIEWS = '/spots/getCurrentUserReviews';
-const ADD_REVIEW = 'reviews/addReview';
+const CREATE_REVIEW = 'reviews/createReview';
 const DELETE_A_REVIEW = '/reviews/deleteReview';
+const CLEAR_REVIEWS = '/reviews/clearReviews';
+
 
 
 /*-Action Creators -*/
@@ -29,7 +31,7 @@ export const getCurrentUserReviews = (review) => {
 /*-Create A Review -*/
 export const createAReview = (newReview) => {
     return {
-        type: ADD_REVIEW,
+        type: CREATE_REVIEW,
         newReview
     };
 };
@@ -42,15 +44,26 @@ export const deleteAReview = (reviewId) => {
     }
 };
 
+/*- Clear Reviews -*/
+export const clearReviews = () => {
+    return {
+        type: CLEAR_REVIEWS
+    }
+};
+
 /*- Thunks -*/
 
 /*- All Reviews Thunk -*/
 export const thunkAllReviews = (spotId) => async (dispatch) => {
-    const response = await fetch(`/api/spots/${spotId}/reviews`);
-    const reviews = await response.json();
-    dispatch(getAllReviews(reviews));
-    console.log('all reviews thunka', reviews);
-};
+    let res;
+    try {
+      res = await csrfFetch(`/api/spots/${spotId}/reviews`);
+      const allReviews = await res.json();
+      dispatch(getAllReviews(allReviews));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
 /*- Current User Reviews Thunk -*/
 export const thunkACurrentReviews = () => async (dispatch) => {
@@ -63,7 +76,7 @@ export const thunkACurrentReviews = () => async (dispatch) => {
 export const thunkCreateReview = (newReview) => async (dispatch) => {
     let res;
     try {
-        res = await csrfFetch(`/api/spots${newReview.spotId}/reviews`, {
+        res = await csrfFetch(`/api/spots/${newReview.spotId}/reviews`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(newReview)
@@ -95,20 +108,33 @@ export const thunkADeleteReview = (reviewId) => async (dispatch, getState) => {
 
 /*- Review Reducer -*/
 const reviewsReducer = (state = {}, action) => {
+    let newState = {};
     console.log('made it into reducer', action)
     switch(action.type) {
         case GET_ALL_REVIEWS:
-            console.log('part booty', action);
             const newReview = {};
             const reviews = action.reviews.Reviews;
             console.log('GET_ALL_REVIEWS', reviews);
-            reviews.forEach(review => {
-                newReview[review.id] = review
-            });
+            if (reviews.length > 0) {
+              reviews.forEach(review => {
+                newReview[review.id] = review;
+              });
+            } else {
+              newReview[action.reviews.SpotId] = {};
+            }
             console.log('NEW REVIEW', newReview);
-            return newReview;
-            default:
+            return {...state, ...newReview};
+        case CREATE_REVIEW:
+            return {...state, [action.newReview.id]: action.newReview}
+        case DELETE_A_REVIEW:
+            newState = {...state};
+            delete newState[action.reviewId];
+            return newState;
+        case CLEAR_REVIEWS:
+            return {};
+         default:
                 return state;
+
     }
 };
 
