@@ -2,7 +2,11 @@ import { csrfFetch } from "./csrf";
 
 /* - Action Types - */
 const GET_SPOTS = 'spots/getSpots';
+const GET_USER_SPOTS = 'spots/getUserSpots';
 const GET_A_SPOT = 'spots/getASpot';
+const ADD_A_SPOT = 'spots/addASpot';
+const EDIT_A_SPOT = 'spots/editASpot';
+const DELETE_A_SPOT = 'spots/deleteASpot';
 
 /*- Action Creators - */
 
@@ -14,6 +18,15 @@ export const getSpots = (spots) => {
     }
 };
 
+/*-Get Current Spots of User-*/
+export const getUserSpots = (userId) => {
+    return {
+        type: GET_USER_SPOTS,
+        userId
+    }
+};
+
+
 /*-Get A Spot-*/
 export const getASpot = (spot) => {
     return {
@@ -21,6 +34,30 @@ export const getASpot = (spot) => {
         spot
     }
 };
+
+/*-Create A Spot-*/
+export const addASpot = (spot) => {
+    return {
+        type: ADD_A_SPOT,
+       spot
+    }
+}
+
+/*-Edit A Spot-*/
+export const editASpot = (spot) => {
+    return {
+        type: EDIT_A_SPOT,
+        spot
+    }
+}
+
+/*- Delete A Spot -*/
+export const deleteASpot = (spotId) => {
+    return {
+        type: DELETE_A_SPOT,
+        spotId
+    }
+}
 
 /* - Thunks - */
 
@@ -32,29 +69,158 @@ export const thunkAllSpots = () => async (dispatch) => {
     dispatch(getSpots(spots));
 };
 
+/*- Current Spots for User Thunkacalicious -*/
+export const thunkAUser = () => async (dispatch) => {
+    const res = await csrfFetch('/api/spots/current');
+
+
+
+    if (res.ok) {
+      const spots = await res.json();
+      dispatch(getUserSpots(spots));
+    }
+  };
+
+
 /*- A Spot Thunk - */
 export const thunkASpot = (spotId) => async (dispatch, getState) => {
     const response = await fetch(`/api/spots/${spotId}`);
     const spot = await response.json();
     dispatch(getASpot(spot));
+    console.log('single spot gottem from thunk', spot);
+};
+
+/*- Create A Spot Thunk - */
+export const thunkACreate = (spot) => async (dispatch) => {
+    let res;
+    try {
+        res = await csrfFetch('/api/spots', {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify(spot)
+        });
+        console.log("where is poop town",res)
+        const spotResponse = await res.json();
+        dispatch(addASpot(spotResponse));
+        return spotResponse;
+    } catch(err) {
+        console.log('before err',err);
+      const errors = await err.json();
+      console.log('after err',err);
+      return errors;
+    }
+};
+
+/*-Edit A Spot Thunk - */
+export const thunkAEdit = (spot) => async (dispatch) => {
+    console.log('thunk reached', spot);
+    let res;
+    try {
+        res = await csrfFetch(`/api/spots/${spot.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        });
+
+        const spotToEdit = await res.json();
+        console.log('before edit thunk gone through', spotToEdit);
+        dispatch(editASpot(spotToEdit));
+        console.log('after edit thunk gone through', spotToEdit);
+        return spotToEdit
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
+    }
+};
+
+/*- Delete A Spot Thunk -*/
+export const thunkADelete = (spotId) => async (dispatch, getState) => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/spots/${spotId}`, {
+            method: 'DELETE'
+        });
+        const deleteSpot = await res.json();
+        dispatch(deleteASpot(spotId));
+        return deleteSpot
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
+    }
 }
 
 /* - Reducer(s) - */
-const initialState = {};
+const initialState = {
+    allSpots: {},
+    singleSpot: {},
+};
+
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_SPOTS:
-            const newState = {};
+        case GET_SPOTS: {
+            const newAllSpots = {};
             const spotsArr = action.spots.Spots;
             spotsArr.forEach(spot => {
-               newState[spot.id] = spot;
+                newAllSpots[spot.id] = spot;
             });
-            return {...state, ...newState};
-        case GET_A_SPOT:
-            return {...state, [action.spot.id]: action.spot};
+            return {
+                ...state,
+                allSpots: newAllSpots,
+            };
+        }
+        case GET_USER_SPOTS: {
+            console.log('GET USER SPOTS', action);
+            const newAllSpots = {};
+            console.log('action.userId:', action.userId);
+            const spotsArr = action.userId.Spots;
+            spotsArr.forEach(spot => {
+                newAllSpots[spot.id] = spot;
+            });
+            return {
+                ...state,
+                allSpots: newAllSpots,
+            };
+        }
+        case GET_A_SPOT: {
+            const newSingleSpot = action.spot;
+            console.log("GET_A_SPOT", newSingleSpot);
+            return {
+                ...state,
+                singleSpot: newSingleSpot,
+            };
+        }
+        case ADD_A_SPOT: {
+            console.log('CREATE A SPOT ACTION', action);
+            const newSpot = action.spot;
+            console.log('newSpot', action.spot);
+            return {
+                ...state,
+                allSpots: {
+                    ...state.allSpots,
+                    [newSpot.id]: newSpot,
+
+                },
+                singleSpot: newSpot,
+
+            };
+
+        }
+        case EDIT_A_SPOT: {
+            console.log('EDIT_A_SPOT', action.spot);
+            const updatedSpot = action.spot;
+            return {
+              ...state,
+              singleSpot: updatedSpot,
+            };
+        }
+        case DELETE_A_SPOT: {
+            const newSpots = { ...state, allSpots:{...state.allSpots} };
+            delete newSpots.allSpots[action.spotId]
+            return newSpots
+        }
         default:
             return state;
     }
-}
+};
 
 export default spotsReducer;

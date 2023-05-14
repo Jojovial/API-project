@@ -1,28 +1,65 @@
 #Spots-Container {
-    display:  flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin-top: 1rem;
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
+    margin-top: 2rem;
+    margin: 1rem;
+  }
 
-
-#Spot{
-    width: 1rem;
-    padding: 100%;
-}
-
-.Spot-Info {
-    color: blue;
-    font-size: 20px;
-
-}
-
-#Top {
+  #Spot {
     display: flex;
-    text-align: end;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
 
-}
+  #Spot-Grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
 
-#Spot-Image {
-    width: 400px;
-}
+  #Spot-Grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .Spot-Info {
+    font-size: 1.2rem;
+  }
+
+  #Spot-Price.Spot-Info {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    color: blue;
+  }
+
+  #Spot-Rating.Spot-Info {
+    display: flex;
+    justify-self: flex-end;
+    align-items: center;
+    color: blue;
+  }
+
+  #Top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  #Spot-Image {
+    height: 10rem;
+    width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+  }

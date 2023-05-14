@@ -30,14 +30,14 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .isLength({ min: 1, max: 50 })
     .withMessage('Country is required'),
-  check('lat')
-    .exists({ checkFalsy: true })
-    .isDecimal()
-    .withMessage('Invalid latitude'),
-  check('lng')
-    .exists({ checkFalsy: true })
-    .isDecimal()
-    .withMessage('Invalid longtitude'),
+  // check('lat')
+  //   .exists({ checkFalsy: true })
+  //   .isDecimal()
+  //   .withMessage('Invalid latitude'),
+  // check('lng')
+  //   .exists({ checkFalsy: true })
+  //   .isDecimal()
+  //   .withMessage('Invalid longtitude'),
   check('name')
     .exists({ checkFalsy: true })
     .isLength({ min: 1, max: 70 })
@@ -185,8 +185,10 @@ router.get('/:spotId', async (req, res, next) =>{
     }
   });
   let reviews = await Review.findAll();
-  let images = await SpotImage.findOne({
-    where: { spotId },
+  let images = await SpotImage.findAll({
+    where: {
+        spotId: spotId
+    },
     attributes: {
       exclude: ['spotId', 'createdAt', 'updatedAt']
     }
@@ -203,17 +205,22 @@ router.get('/:spotId', async (req, res, next) =>{
       }
   }
   /*-Image Preview-*/
-  let imagePreview = images ? images.toJSON().url : null;
+  // let imagePreview = images ? images.toJSON().url : null;
+  let imagesArr = [];
+    for(let image of images) {
+      image = image.toJSON();
+      imagesArr.push(image);
+    }
 
   /*-Reassigned-Plus-Errors-*/
   thisSpot.numReviews = length;
   thisSpot.avgStarRating = total / length;
-  thisSpot.SpotImages = imagePreview;
+  thisSpot.SpotImages = imagesArr;
   thisSpot.Owner = aUser;
   if(!thisSpot.avgStarRating) {
     thisSpot.avgStarRating = 'Has not been rated yet (ಥ﹏ಥ)'
   }
-  if(!imagePreview) {
+  if(!imagesArr.length) {
     thisSpot.SpotImages = 'No images (╯︵╰,)  '
   }
   if(!thisSpot.numReviews) {
@@ -279,7 +286,6 @@ if (Object.keys(errors).length) {
 
 const query = { limit: size, offset: size * (page - 1) };
 const allSpots = await Spot.findAll({
-  where: { lat: { [Op.between]: [-90, lat] }, lng: { [Op.between]: [-180, lng] }, price: { [Op.between]: [0, price] } },
   ...query,
 });
 
@@ -480,7 +486,7 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
       price
   });
 
-  res.status(201).json(newSpot);
+  res.status(201).json({Spot:newSpot});
 });
 
 
@@ -495,7 +501,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     return next(err);
   }
 
-  const updateSpot = await Spot.findOne({ where: { id: spotId, ownerId: req.user.id } });
+  const updateSpot = await Spot.findByPk(req.user.id);
 
   if (!updateSpot) {
     const err = new Error(`Spot couldn't be found`);
@@ -531,8 +537,8 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     updateSpot.price = price;
   }
   await updateSpot.save();
-  const updatedSpot = await Spot.findByPk(spotId);
-  res.status(200).json({ message: 'Edit successful °˖✧◝(⁰▿⁰)◜✧˖°', Spot: updatedSpot });
+;
+  res.status(200).json(updateSpot);
 });
 
 

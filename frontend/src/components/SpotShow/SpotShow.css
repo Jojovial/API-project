@@ -1,21 +1,165 @@
 #Spot-Container {
     margin: 1rem 2rem;
-}
+  }
 
-#Spot-Name, #Spot-Location {
+  #Spot-Name,
+  #Spot-Location {
     margin: 1rem;
-}
+  }
 
-#Reserve-Button {
+  .Photo-Gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+  }
+
+  .First-Image {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+  }
+
+  .First-Image img {
+    width: 30rem;
+    height: auto;
+  }
+
+  .Other-Images {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: .5rem;
+    width: auto;
+  }
+
+  .Other-Images img {
+    width: 15rem;
+    height: auto;
+    object-fit: cover;
+  }
 
 
+  .Spot-Info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .Spot-Owner {
+    width: 60%;
+  }
+
+  .Reservation {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid blue;
+    margin-top: 2rem;
+  }
+
+  .Price-Top{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    width: 100%;
+  }
+
+  p.Price {
+  margin-top: 1rem;
+  }
+
+
+
+  #Reserve-Button{
     margin-top: 1rem;
     border-radius: 30px;
     border: none;
     color: rgb(0, 6, 175);
     background-color: rgb(148, 169, 239);
-    height: 2.5rem;
-    padding: .4rem;
-    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 
-}
+  .Stars-Container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .Stars-Container h3 {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+  }
+  .Number-Reviews{
+    margin-top: 1rem;
+  }
+
+  .Reviews-Container {
+    margin-top: 2rem;
+  }
+
+  .Review-Button {
+    margin-top: 1rem;
+    border-radius: 30px;
+    border: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 6, 175);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .Reviews-Container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .Reviews-Container li {
+    margin-top: 1rem;
+    padding: 1rem;
+    position: relative;
+  }
+
+  .Reviews-Container li h5 {
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .Reviews-Container li p {
+    margin: 0;
+    margin-top: 0.5rem;
+  }
+
+  .Reviews-Container li button {
+    margin-top: 1rem;
+    border-radius: 30px;
+    border: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 6, 175);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .Reviews-Container button {
+    margin-top: 1rem;
+    border-radius: 30px;
+    border: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 6, 175);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .Reviews-Container {
+    margin-top: 2rem;
+    border-top: 1px solid #ccc;
+  }

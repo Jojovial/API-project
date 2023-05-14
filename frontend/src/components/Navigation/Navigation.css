@@ -15,12 +15,13 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    border-bottom: solid gray 3px;
+    border-bottom: solid rgb(78, 105, 203) 3px;
     height: 4rem;
     width: 100%;
     padding-bottom: 1rem;
     margin-right: 35px;
     margin-top: 20px;
+
 }
 
 #Profile-Wrapper {
@@ -28,11 +29,13 @@
     flex-direction: column;
     justify-content: flex-start;
     height: 50px;
+    z-index: 1;
 }
 
 #Modal-Links {
     display: flex;
     justify-content: flex-end;
+    margin-right: 1rem;
 }
 
 #Modal-Links:hover {
@@ -61,6 +64,7 @@
     justify-content: flex-end;
     margin-right: .4rem;
 
+
 }
 
 #Profile-Button:hover {
@@ -86,17 +90,27 @@
 }
 
 .profile-dropdown {
-    border: red solid;
+    border: blue solid 2px;
     background: rgb(238, 249, 255);
     text-align: end;
     color:rgb(11, 121, 255);
     font-size: 17px;
     width: 7rem;
-    padding: .1rem;
+    padding: .3rem;
+    margin-right: .5rem;
+    border-radius: 20px;
+    right: 0;
 }
 
+.Create-Spot-Wrapper {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
 
-
+a#New-Spot-Link{
+    list-style: none;
+}
 
 
 /* ul {
