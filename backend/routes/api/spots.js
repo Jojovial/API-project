@@ -501,7 +501,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     return next(err);
   }
 
-  const updateSpot = await Spot.findOne({ where: { id: spotId, ownerId: req.user.id } });
+  const updateSpot = await Spot.findByPk(req.user.id);
 
   if (!updateSpot) {
     const err = new Error(`Spot couldn't be found`);
@@ -537,8 +537,8 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     updateSpot.price = price;
   }
   await updateSpot.save();
-  const updatedSpot = await Spot.findByPk(spotId);
-  res.status(200).json({ message: 'Edit successful °˖✧◝(⁰▿⁰)◜✧˖°', Spot: updatedSpot });
+;
+  res.status(200).json(updateSpot);
 });
 
 

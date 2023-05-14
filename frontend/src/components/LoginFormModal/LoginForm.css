@@ -9,8 +9,10 @@ h1 {
     align-items: center;
     width: 20rem;
     height: 15rem;
-    padding: 4rem;
+    padding: 10rem;
     z-index: 9999;
+    max-height: calc(100vh - 8rem);
+    margin-bottom: 8rem;
 }
 
 .Form {
@@ -45,5 +47,10 @@ h1 {
 #modal-background {
     display: flex;
     padding: 2rem;
-    
+
+}
+
+#LogIn-Button, #DemoUser-Button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

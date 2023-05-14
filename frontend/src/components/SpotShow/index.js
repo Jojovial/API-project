@@ -64,22 +64,24 @@ const SpotShow = () => {
                 <p>{spot.description}</p>
             </div>
             <div className="Reservation">
-                <p className="Price">{spot.price}</p>
-                <p className="Reviews">{spot.numReviews}</p>
-                <p className="Stars"><i className="fa-solid fa-star"></i>{spot.avgStarRating}</p>
+                <p className="Price">${spot.price}</p>
+                <p className="Reviews">{spot.numReviews} Reviews</p>
+                <p className="Stars"><i className="fa-solid fa-star"></i>{spot.avgStarRating} Stars</p>
                 <button id="Reserve-Button">Reserve</button>
             </div>
          </div>
          <div className="Stars-Container">
-            <h3><i className="fa-solid fa-star"></i>{spot.avgStarRating}</h3>
-            <h3>{spot.numReviews}</h3>
+            <h3><i className="fa-solid fa-star"></i>{spot.avgStarRating} Stars</h3>
+            <h3>{spot.numReviews} Reviews</h3>
          </div>
          <div className="Reviews-Container">
+    {userId ? (
   <OpenModalButton
-    className="Review-Button"
+    className="Review-Button custom-button"
     buttonText="Post Your Review"
     modalComponent={<ReviewFormModal spot={spot} onReviewCreated/>}
   />
+    ) : null}
     {Object.values(allReviews).length > 0 && (
   <ul>
     {Object.values(allReviews).reverse().map((review) => {
@@ -105,7 +107,8 @@ const SpotShow = () => {
             {review.userId === userId ? (
             <OpenModalButton
             buttonText="Delete"
-            modalComponent={<DeleteReviewModal reviewId={review.id} spotId={review.spotId}/>}
+            modalComponent={<DeleteReviewModal reviewId={review.id} spotId={review.spotId}
+            className="delete-button"/>}
         />
             ) : null}
           </li>

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { thunkADeleteReview } from "../../store/reviewsReducer";
-
+import { thunkASpot } from "../../store/spotsReducer";
 const DeleteReviewModal = ({ reviewId, spotId}) => {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
@@ -10,6 +10,7 @@ const DeleteReviewModal = ({ reviewId, spotId}) => {
 
     const YesToDelete = () => {
         dispatch(thunkADeleteReview(reviewId));
+        dispatch(thunkASpot(spotId));
         history.push(`/spots/${spotId}`);
         closeModal();
     }

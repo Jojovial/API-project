@@ -101,8 +101,13 @@
     border-radius: 20px;
 }
 
+.Create-Spot-Wrapper {
+    list-style: none;
+}
 
-
+a#New-Spot-Link{
+    list-style: none;
+}
 
 
 /* ul {

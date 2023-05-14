@@ -11,7 +11,7 @@ function Navigation({ isLoaded }){
     <ul>
       <div className="Navigation-Wrapper">
       <li>
-        <NavLink className="links" id="Home" exact to="/">Home</NavLink>
+        <NavLink className="links" id="Home" exact to="/">  L<i class="fa-regular fa-compass"></i>G BnB</NavLink>
       </li>
       {isLoaded && (
         <li id="Profile-Wrapper">

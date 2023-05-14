@@ -1,9 +1,10 @@
 import React, { useState} from 'react';
 import { useDispatch } from 'react-redux';
 import {useModal} from '../../context/Modal';
-import { thunkCreateReview } from '../../store/reviewsReducer';
+import { thunkCreateReview, thunkAllReviews } from '../../store/reviewsReducer';
 import { thunkASpot } from '../../store/spotsReducer';
 import './Stars.css';
+
 
 const ReviewFormModal = ({ spot, disabled, onReviewCreated }) => {
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const ReviewFormModal = ({ spot, disabled, onReviewCreated }) => {
       } else {
         closeModal();
         dispatch(thunkASpot(spot.id))
+        dispatch(thunkAllReviews(spot.id))
         onReviewCreated(newReview);
       }
     }

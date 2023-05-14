@@ -1,48 +1,64 @@
 #Spots-Container {
-    display:  flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 1rem;
-    z-index: -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
+    margin-top: 2rem;
+  }
 
-}
+  #Spot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
 
+  #Spot-Grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
 
-#Spot{
-    width: 1rem;
-    padding: 100%;
-}
+  #Spot-Grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-.Spot-Info {
-    color: blue;
-    font-size: 20px;
+  .Spot-Info {
+    font-size: 1.2rem;
+  }
 
-}
-
-#Spot-Price.Spot-Info {
+  #Spot-Price.Spot-Info {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 1rem;
     margin-left: 1rem;
-}
+    color: blue;
+  }
 
-#Spot-Rating.Spot-Info {
+  #Spot-Rating.Spot-Info {
     display: flex;
-    padding: 1rem;
     justify-self: flex-end;
-}
+    align-items: center;
+    color: blue;
+  }
 
-#Top {
+  #Top {
     display: flex;
     justify-content: space-between;
-
     width: 100%;
+    margin-bottom: 1rem;
+  }
 
-}
-
-#Spot-Image {
+  #Spot-Image {
     height: 350px;
-    width: 400px;
-    border: .2rem solid darkblue;
-    z-index: -1;
-}
+    width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+  }

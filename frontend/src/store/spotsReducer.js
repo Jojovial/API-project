@@ -31,7 +31,7 @@ export const getUserSpots = (userId) => {
 export const getASpot = (spot) => {
     return {
         type: GET_A_SPOT,
-        spot: {id: spot.id, ...spot}
+        spot
     }
 };
 
@@ -123,8 +123,9 @@ export const thunkAEdit = (spot) => async (dispatch) => {
         });
 
         const spotToEdit = await res.json();
-        console.log('after edit thunk gone through', spotToEdit);
+        console.log('before edit thunk gone through', spotToEdit);
         dispatch(editASpot(spotToEdit));
+        console.log('after edit thunk gone through', spotToEdit);
         return spotToEdit
     } catch (err) {
         const errors = await err.json();
@@ -182,6 +183,7 @@ const spotsReducer = (state = initialState, action) => {
         }
         case GET_A_SPOT: {
             const newSingleSpot = action.spot;
+            console.log("GET_A_SPOT", newSingleSpot);
             return {
                 ...state,
                 singleSpot: newSingleSpot,

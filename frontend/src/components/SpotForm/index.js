@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { thunkACreate, thunkAEdit } from "../../store/spotsReducer";
-
+import "./SportForm.css";
 
 const SpotForm = ({ spot, formType }) => {
     const history = useHistory();
@@ -47,8 +47,8 @@ const SpotForm = ({ spot, formType }) => {
             url: image5,
           },
         ];
-        const formData = {
-          id: spot.id,
+          spot = {
+          ...spot,
           country,
           address,
           city,
@@ -59,25 +59,26 @@ const SpotForm = ({ spot, formType }) => {
           spotImages,
         };
         if (formType === "Update your Spot") {
-          const editedSpot = await dispatch(thunkAEdit(formData));
+          const editedSpot = await dispatch(thunkAEdit(spot));
           if (editedSpot.errors) {
             setErrors(editedSpot.errors);
           } else {
-            history.push(`/spots/${editedSpot.Spot.id}`);
+            history.push(`/spots/${editedSpot.id}`);
           }
         } else if (formType === "Create a new Spot") {
-          const newSpot = await dispatch(thunkACreate(formData));
+          const newSpot = await dispatch(thunkACreate(spot));
           if (newSpot.errors) {
             setErrors(newSpot.errors);
           } else {
-            history.push(`/spots/${newSpot.Spot.id}`);
+            history.push(`/spots/${newSpot.id}`);
           }
         }
       };
 
     return(
         <>
-        <form onSubmit={onSubmit}>
+        <div className="Form-Container">
+        <form className="form spot-form" onSubmit={onSubmit}>
             <label>
                 Country:
                 <div className="errors">{errors.country}</div>
@@ -188,6 +189,7 @@ const SpotForm = ({ spot, formType }) => {
             {formType === "Create a new Spot" ? "Create your spot" : "Update your spot"}
             </button>
         </form>
+        </div>
         </>
     );
 }

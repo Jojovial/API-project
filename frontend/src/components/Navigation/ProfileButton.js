@@ -49,9 +49,11 @@ function ProfileButton({ user }) {
 
   return (
     <>
+      <div className="Create-Spot-Wrapper">
       <NavLink exact to="/spots/new" id="New-Spot-Link">
         {showCreateSpot ? (<>Create a New Spot</>): null}
       </NavLink>
+      </div>
       <button className="buttons" onClick={openMenu}>
       <i id="Profile-Bars" className="fa-solid fa-bars"></i>
       <i id="Profile-Button" className="fa-solid fa-user"></i>
