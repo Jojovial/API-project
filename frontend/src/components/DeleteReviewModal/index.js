@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { thunkADeleteReview } from "../../store/reviewsReducer";
 import { thunkASpot } from "../../store/spotsReducer";
+import './DeleteReviewModal.css';
 const DeleteReviewModal = ({ reviewId, spotId}) => {
     const { closeModal } = useModal();
     const dispatch = useDispatch();

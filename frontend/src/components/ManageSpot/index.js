@@ -18,6 +18,16 @@ const CurrentUserSpots = () => {
         <h3>Loading Beep Boop..</h3>
     );
 
+    if (currentSpots.length === 0) {
+        return (
+          <>
+            <h1>No spots yet!</h1>
+            <Link to="/spots/new">
+              <button className="Create-Button">Create New Spot</button>
+            </Link>
+          </>
+        );
+      }
 
 
 
@@ -25,24 +35,35 @@ const CurrentUserSpots = () => {
         <>
             <div className ="Current-Header">
             <h1>Manage your spots or else</h1>
-            <Link exact to="/spots/new">
+            {/* <Link exact to="/spots/new">
                 <button className="Create-Button">Create New Spot</button>
-            </Link>
+            </Link> */}
             </div>
             <div id="SpotsContainer">
             {Object.values(currentSpots).map((spot) => {
                 return (
                     <>
+
                         <div key={spot.id} id="spot" className='Current-Spots'>
+                        <Link to={`/spots/${spot.id}`}>
                             <img
                             src={spot.previewImage}
                             id="SpotImage"
                             alt={spot.name}
                             >
                             </img>
+                            </Link>
                             <div className="Current-Spots-Info">
-                                <p className="SpotInfo" id="SpotLocation">{spot.city}, {spot.state}</p>
-                                <p className="SpotInfo" id="SpotRating">{spot.avgRating}</p>
+                            <p className="Spot-Info" id="Spot-Location">
+                            {spot.city}, {spot.state}
+                             </p>
+                            <p className="Spot-Info" id="Spot-Rating">
+                            {spot.avgRating}
+                            </p>
+
+                            <p className="Spot-Info" id="Spot-Price">
+                             ${spot.price} per visit
+                            </p>
 
                             <div className="Update-Delete">
                                 <Link exact to={`/spots/${spot.id}/edit`}>Update</Link>
@@ -53,6 +74,7 @@ const CurrentUserSpots = () => {
                                       </div>
                                 </div>
                             </div>
+
                     </>
                 )
             })}

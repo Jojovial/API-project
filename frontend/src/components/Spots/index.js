@@ -30,8 +30,16 @@ const SpotsIndex = () => {
       <div id="Spots-Container">
         {spots.map((spot) => {
           console.log(spot);
+          const starRating = spot.avgRating && spot.avgRating > 0 ? (
+            <>
+              {spot.avgRating.toFixed(1)}
+              <i className="fa-solid fa-star"></i>
+            </>
+          ) : (
+            "New"
+          );
           return (
-            <div key={spot.id} id="Spots">
+            <div key={spot.id} id="Spots" title={spot.name}>
               <Link exact to={`/spots/${spot.id}`}>
               {!previewImage && <div className="placeholder-image" />}
               <img
@@ -47,7 +55,7 @@ const SpotsIndex = () => {
                   {spot.city}, {spot.state}
                 </p>
                 <p className="Spot-Info" id="Spot-Rating">
-                  {spot.avgRating}
+                {starRating}
                 </p>
               </div>
               <p className="Spot-Info" id="Spot-Price">

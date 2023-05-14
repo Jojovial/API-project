@@ -96,12 +96,15 @@
     color:rgb(11, 121, 255);
     font-size: 17px;
     width: 7rem;
-    padding: .1rem;
-    margin-right: .3rem;
+    padding: .3rem;
+    margin-right: .5rem;
     border-radius: 20px;
+    right: 0;
 }
 
 .Create-Spot-Wrapper {
+    display: flex;
+    align-items: center;
     list-style: none;
 }
 

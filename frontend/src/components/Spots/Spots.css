@@ -3,6 +3,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2rem;
     margin-top: 2rem;
+    margin: 1rem;
   }
 
   #Spot {
@@ -57,7 +58,7 @@
   }
 
   #Spot-Image {
-    height: 350px;
+    height: 10rem;
     width: 100%;
     border-radius: 5px;
     object-fit: cover;
