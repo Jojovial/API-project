@@ -75,15 +75,17 @@ const SpotShow = () => {
                 <p>{spot.description}</p>
             </div>
             <div className="Reservation">
+                <div className="Price-Top">
                 <p className="Price">${spot.price}</p>
                 <p className="Reviews">{spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</p>
                 <p className="Stars"> {stars}</p>
+                </div>
                 <button id="Reserve-Button" onClick={() => window.alert("Feature coming soon")}>Reserve</button>
             </div>
          </div>
          <div className="Stars-Container">
             <h3>{stars}</h3>
-            <h3>{spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h3>
+            <h3 className="Number-Reviews">{spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h3>
          </div>
          <div className="Reviews-Container">
          {userId && !hasReviewed ? (

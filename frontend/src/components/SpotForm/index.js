@@ -79,6 +79,7 @@ const SpotForm = ({ spot, formType }) => {
         <>
         <div className="Form-Container">
         <form className="form spot-form" onSubmit={onSubmit}>
+            <h3>Where is your place located?</h3>
             <label>
                 Country:
                 <div className="errors">{errors.country}</div>
@@ -119,9 +120,9 @@ const SpotForm = ({ spot, formType }) => {
                     placeholder="State"
                 />
             </label>
+            <h3>Describe your place to guests!</h3>
             <label>
-                Description:
-                <input
+                <textarea
                     type="text"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
