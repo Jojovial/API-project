@@ -20,6 +20,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     text-align: center;
+    cursor: pointer;
   }
 
   #SpotImage {
@@ -56,6 +57,7 @@
     font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .Update-Delete > button {
@@ -68,6 +70,7 @@
     font-weight: bold;
     margin-left: 0.5rem;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .Create-Button {
@@ -79,6 +82,7 @@
     font-size: 1rem;
     font-weight: bold;
     margin-left: 2.5rem;
+    cursor: pointer;
   }
   #SpotsContainer a,
   #spot a {

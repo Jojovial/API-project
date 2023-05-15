@@ -9,6 +9,7 @@
     justify-content: flex-end;
     padding: .3rem;
     margin-right: .3rem;
+    cursor: pointer;
 }
 
 .Navigation-Wrapper {
@@ -54,6 +55,7 @@
     width: 1rem;
     padding-right: 1rem;
     margin-top: .2rem;
+    cursor: pointer;
 
 }
 

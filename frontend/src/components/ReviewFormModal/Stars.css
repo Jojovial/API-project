@@ -60,4 +60,5 @@ textarea {
     height: 2.5rem;
     padding: .4rem;
     font-size: 1.5rem;
+    cursor: pointer;
 }

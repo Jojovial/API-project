@@ -42,6 +42,7 @@ h1 {
     height: 2.5rem;
     padding: .4rem;
     font-size: 1.5rem;
+    cursor: pointer;
 }
 
 #modal-background {
@@ -53,4 +54,5 @@ h1 {
 #LogIn-Button, #DemoUser-Button {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    cursor: pointer;
 }

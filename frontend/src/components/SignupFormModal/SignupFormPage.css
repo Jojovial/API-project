@@ -8,7 +8,7 @@
     padding-top: .2rem;
     margin: 4rem;
     margin-bottom: 12rem;
-  
+
 
 }
 
@@ -41,4 +41,5 @@ input {
     padding: .4rem;
     font-size: 1.5rem;
     width: 100%;
+    cursor: pointer;
 }
