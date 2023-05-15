@@ -36,9 +36,13 @@ const ReviewFormModal = ({ spot, disabled, onReviewCreated }) => {
       }
     }
 
+
+    const isDisabled = review.length < 10;
+
+
     return(
         <>
-            <div id="DeleteModal">
+            <div id="ReviewModal">
                 <h2>How was your stay?</h2>
                 {errors ? (<p className = 'errors'>{errors}</p>): null}
                 <textarea
@@ -80,7 +84,7 @@ const ReviewFormModal = ({ spot, disabled, onReviewCreated }) => {
                     </div>
                 </ul>
                 <div className="Create-Container-Button">
-                    <button id="Create-Review" onClick={e => createReview()}>Submit your Review</button>
+                    <button id="Create-Review" disabled={isDisabled} onClick={e => createReview()}>Submit your Review</button>
                 </div>
             </div>
         </>

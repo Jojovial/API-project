@@ -32,11 +32,11 @@ const SpotsIndex = () => {
           console.log(spot);
           const starRating = spot.avgRating && spot.avgRating > 0 ? (
             <>
-              {spot.avgRating.toFixed(1)}
               <i className="fa-solid fa-star"></i>
+              {spot.avgRating.toFixed(1)}
             </>
           ) : (
-            "New"
+            <i className="fa-solid fa-star">New</i>
           );
           return (
             <div key={spot.id} id="Spots" title={spot.name}>

@@ -26,7 +26,28 @@ const SpotForm = ({ spot, formType }) => {
         e.preventDefault();
         setErrors({});
          const err = {};
-         const SpotImages = [];
+         const spotImages = [
+          {
+            preview: true,
+            url: previewImage,
+          },
+          {
+            preview: false,
+            url: image2,
+          },
+          {
+            preview: false,
+            url: image3,
+          },
+          {
+            preview: false,
+            url: image4,
+          },
+          {
+            preview: false,
+            url: image5,
+          },
+         ];
           spot = {
           ...spot,
           country,
@@ -36,28 +57,7 @@ const SpotForm = ({ spot, formType }) => {
           description,
           name,
           price,
-          SpotImages: [
-            {
-              preview: true,
-              url: previewImage,
-            },
-            {
-              preview: false,
-              url: image2,
-            },
-            {
-              preview: false,
-              url: image3,
-            },
-            {
-              preview: false,
-              url: image4,
-            },
-            {
-              preview: false,
-              url: image5,
-            },
-          ]
+          spotImages
         };
         if (formType === "Update your Spot") {
           const editedSpot = await dispatch(thunkAEdit(spot));
@@ -141,7 +141,7 @@ const SpotForm = ({ spot, formType }) => {
                     type="text"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Description"
+                    placeholder="Please write at least 30 characters"
                 />
                 <div className="errors">{errors.description}</div>
             </label>

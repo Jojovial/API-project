@@ -50,6 +50,7 @@ const SpotShow = () => {
     const stars = (
       <div className="Stars-Container">
           <i className="fa-solid fa-star"></i>
+
           <span>{spot && spot.avgStarRating && spot.avgStarRating}</span>
 
       </div>
@@ -76,7 +77,7 @@ const SpotShow = () => {
             </div>
             <div className="Reservation">
                 <div className="Price-Top">
-                <p className="Price">${spot.price}</p>
+                <p className="Price">${spot.price} per visit</p>
                 <p className="Reviews">{spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</p>
                 <p className="Stars"> {stars}</p>
                 </div>

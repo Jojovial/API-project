@@ -218,13 +218,13 @@ router.get('/:spotId', async (req, res, next) =>{
   thisSpot.SpotImages = imagesArr;
   thisSpot.Owner = aUser;
   if(!thisSpot.avgStarRating) {
-    thisSpot.avgStarRating = 'Has not been rated yet (ಥ﹏ಥ)'
+    thisSpot.avgStarRating = '0'
   }
   if(!imagesArr.length) {
     thisSpot.SpotImages = 'No images (╯︵╰,)  '
   }
   if(!thisSpot.numReviews) {
-    thisSpot.numReviews = 'No reviews ٩(ఠ益ఠ)۶'
+    thisSpot.numReviews = '0'
   }
 
   res.status(200).json(thisSpot);

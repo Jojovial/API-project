@@ -18,7 +18,7 @@
     cursor: pointer;
 }
 
-#DeleteModal {
+#ReviewModal {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,7 +29,7 @@
 
 }
 
-#DeleteModal h2 {
+#ReviewModal h2 {
     color: blue;
     margin-bottom: 1rem;
 }
