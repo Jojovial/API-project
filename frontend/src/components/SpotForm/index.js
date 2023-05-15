@@ -78,16 +78,6 @@ const SpotForm = ({ spot, formType }) => {
         if(!previewImage) {
           err.previewImage = "Preview image is required"
         }
-
-        if(image2){
-          if(!image2.endsWith('.jpg')) {
-            if(!image2.endsWith('.jpge')) {
-              if(!image2.endsWith('.png')) {
-                err.imageUrl = "Image URL must end in .png, .jpg or jpeg"
-              }
-            }
-          }
-        }
       };
 
     return(
