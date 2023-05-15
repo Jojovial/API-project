@@ -44,15 +44,14 @@ const CurrentUserSpots = () => {
                 return (
                     <>
 
-                        <div key={spot.id} id="spot" className='Current-Spots'>
                         <Link to={`/spots/${spot.id}`}>
+                        <div key={spot.id} id="spot" className='Current-Spots'>
                             <img
                             src={spot.previewImage}
                             id="SpotImage"
                             alt={spot.name}
                             >
                             </img>
-                            </Link>
                             <div className="Current-Spots-Info">
                             <p className="Spot-Info" id="Spot-Location">
                             {spot.city}, {spot.state}
@@ -70,10 +69,11 @@ const CurrentUserSpots = () => {
                                 <OpenModalButton
                                         buttonText='Delete'
                                         modalComponent={<DeleteASpot spotId={spot.id} />}
-                                />
+                                        />
                                       </div>
                                 </div>
                             </div>
+                            </Link>
 
                     </>
                 )

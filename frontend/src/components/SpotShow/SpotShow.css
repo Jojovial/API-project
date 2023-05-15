@@ -1,5 +1,6 @@
 #Spot-Container {
     margin: 1rem 2rem;
+    
   }
 
   #Spot-Name,
@@ -107,6 +108,7 @@
   }
 
   .Review-Button {
+    text-decoration: none;
     margin-top: 1rem;
     border-radius: 30px;
     border: none;
@@ -168,4 +170,7 @@
   .Reviews-Container {
     margin-top: 2rem;
     border-top: 1px solid #ccc;
+  }
+  Link .no-underline {
+    text-decoration: none;
   }
