@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { thunkADelete } from '../../store/spotsReducer';
 import { useModal } from '../../context/Modal';
+import './DeleteASpot.css'
 
 const DeleteASpot = ({ spotId }) => {
     const dispatch = useDispatch();
@@ -20,9 +21,9 @@ const DeleteASpot = ({ spotId }) => {
         <>
         <h1>Delete?</h1>
          <p>Are you sure you want to remove this spot?</p>
-            <button onClick={handleDelete}>Yes: Bye Bye Spot</button>
+            <button className="DeleteASpot-Button" onClick={handleDelete}>Yes: Bye Bye Spot</button>
         <Link exact to={'/spots/current'}>
-            <button onClick={closeModal}>No</button>
+            <button className="No-DeleteASpot-Button"onClick={closeModal}>No</button>
         </Link>
         </>
     )

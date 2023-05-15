@@ -100,15 +100,18 @@
     margin-right: .5rem;
     border-radius: 20px;
     right: 0;
+    text-decoration: none;
 }
 
 .Create-Spot-Wrapper {
     display: flex;
     align-items: center;
     list-style: none;
+    text-decoration: none;
 }
 
 a#New-Spot-Link{
+    text-decoration: none;
     list-style: none;
 }
 

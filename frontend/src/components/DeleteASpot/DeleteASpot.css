@@ -1,0 +1,55 @@
+.DeleteASpot-Modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 32px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 350px;
+    height: 250px;
+  }
+
+  .DeleteASpot-Modal h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .DeleteASpot-Modal p {
+    font-size: 18px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .DeleteASpot-Buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .DeleteASpot-Button,
+  .No-DeleteASpot-Button {
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 6px;
+    margin: 1rem;
+    cursor: pointer;
+  }
+
+  .DeleteASpot-Button {
+    background-color: red;
+    color: white;
+  }
+
+  .No-DeleteASpot-Button {
+    background-color: rgb(148, 169, 239);
+    color: rgb(0, 6, 175);
+  }
+
+  .No-DeleteASpot-Button:hover,
+  .DeleteASpot-Button:hover {
+    transform: scale(1.05);
+  }
