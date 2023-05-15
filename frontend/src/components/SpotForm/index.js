@@ -163,9 +163,9 @@ const SpotForm = ({ spot, formType }) => {
                     onChange={(e) => setPreviewImage(e.target.value)}
                     placeholder="Preview Image Url"
                 />
-                {!previewImage ? <div className="errors">Preview image is required</div>: null}
+                {/* {!previewImage ? <div className="errors">Preview image is required</div>: null}
                 {!previewImage.includes("jpg") && !previewImage.includes("png") && !previewImage.includes("jpeg") ?
-                <div className="errors">Preview Image URL must be a valid image type</div> : null}
+                <div className="errors">Preview Image URL must be a valid image type</div> : null} */}
                 <input
                     type="text"
                     value={image2}
