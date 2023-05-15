@@ -25,28 +25,8 @@ const SpotForm = ({ spot, formType }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        const spotImages = [
-          {
-            preview: true,
-            url: previewImage,
-          },
-          {
-            preview: false,
-            url: image2,
-          },
-          {
-            preview: false,
-            url: image3,
-          },
-          {
-            preview: false,
-            url: image4,
-          },
-          {
-            preview: false,
-            url: image5,
-          },
-        ];
+         const err = {};
+         const SpotImages = [];
           spot = {
           ...spot,
           country,
@@ -56,7 +36,28 @@ const SpotForm = ({ spot, formType }) => {
           description,
           name,
           price,
-          spotImages,
+          SpotImages: [
+            {
+              preview: true,
+              url: previewImage,
+            },
+            {
+              preview: false,
+              url: image2,
+            },
+            {
+              preview: false,
+              url: image3,
+            },
+            {
+              preview: false,
+              url: image4,
+            },
+            {
+              preview: false,
+              url: image5,
+            },
+          ]
         };
         if (formType === "Update your Spot") {
           const editedSpot = await dispatch(thunkAEdit(spot));
@@ -71,6 +72,20 @@ const SpotForm = ({ spot, formType }) => {
             setErrors(newSpot.errors);
           } else {
             history.push(`/spots/${newSpot.id}`);
+          }
+        }
+
+        if(!previewImage) {
+          err.previewImage = "Preview image is required"
+        }
+
+        if(image2){
+          if(!image2.endsWith('.jpg')) {
+            if(!image2.endsWith('.jpge')) {
+              if(!image2.endsWith('.png')) {
+                err.imageUrl = "Image URL must end in .png, .jpg or jpeg"
+              }
+            }
           }
         }
       };
