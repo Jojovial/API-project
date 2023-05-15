@@ -57,7 +57,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107357433627680848/KJdGgKi92ubVrZaGb3Jpo2eZiYn5q5S_QH-9BLSq4HCuGX1vb2UO6B6ddPto_0duiEDzYko4qv3fekn8cwD6IsQqpgyxcY_8jqPRiUOJfJk_LxE7IomuRMqbnq_8D6iNZFck7NI4Y7_LeMDi1VoE2LOHFPS3Rq-nFIF6m1bJKVJBVAfOltHVg0smaoGbgw.png',
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107458062303887380/latest.png',
         preview: true,
       },
       {
@@ -67,7 +67,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107357434244255804/rH_6nLdYxKMMoqMu3zMdJ4vyjmpOeQ9gWqg3vWsHYlJ6q7Xho2cMUciWZN2vhXPdebq5RDERZUDK4-lCYXCaiv9XCDX3kD01HeiQqPogCHqivZwUzy7oc_QBTq55mgxMBpVzQstnagu70maPmf6_ukQ_lLivDjq4GSXaL18Dn6LqSIvxC1ZlMBF8gHrstA.png',
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107458062693969940/latest.png',
         preview: true,
       },
       {
@@ -112,7 +112,7 @@ module.exports = {
       },
       {
         spotId: 6,
-        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107360227038347284/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6c4f474e754758522d4750595f413d3d2d313231383737393834352e313732326338613936326366666463663939373235303334323138332e6a7067.png',
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107458061964161124/352.png',
         preview: true,
       },
       {
@@ -232,7 +232,7 @@ module.exports = {
       },
       {
         spotId: 12,
-        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105244512516845568/CEOnxY7WrZCvQevePA07Z2M8pHo6MSSnvOcQ42hLZDCsmjB0mjs4PPH_bkCxbTxy6Y9tJ4dGhJFBFzCQNteNZO2zm_NKwRzt5tN8epp2_EZ-vFeSE1yaqY3fcxfbI5T6ZdIlRq_R2YEGTURESdJW4ZN6NkdDPi38wc7nU7QLIVzuVWnxrjIM41PBqXaZ-A.png',
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107458063188902008/latest.png',
         preview: true,
       },
       {
