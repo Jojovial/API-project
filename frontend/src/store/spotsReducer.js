@@ -113,6 +113,9 @@ export const thunkACreate = (spot) => async (dispatch) => {
         console.log("where is poop town",res)
         const spotResponse = await res.json();
         dispatch(addASpot(spotResponse));
+        spotResponse.SpotImages = spot.SpotImages.forEach(image => {
+            dispatch(thunkAImages(image, newSpot.id));
+        })
         return spotResponse;
     } catch(err) {
         console.log('before err',err);
@@ -253,10 +256,12 @@ const spotsReducer = (state = initialState, action) => {
         }
         case EDIT_A_SPOT: {
             console.log('EDIT_A_SPOT', action.spot);
+            const newSpot = {...state};
             const updatedSpot = action.spot;
+            newSpot[updatedSpot.id] = updatedSpot;
             return {
               ...state,
-              singleSpot: updatedSpot,
+              singleSpot: newSpot,
             };
         }
         case DELETE_A_SPOT: {
