@@ -5,8 +5,10 @@ const GET_SPOTS = 'spots/getSpots';
 const GET_USER_SPOTS = 'spots/getUserSpots';
 const GET_A_SPOT = 'spots/getASpot';
 const ADD_A_SPOT = 'spots/addASpot';
+const ADD_SPOT_IMAGES = 'spots/addSpotImages'
 const EDIT_A_SPOT = 'spots/editASpot';
 const DELETE_A_SPOT = 'spots/deleteASpot';
+
 
 /*- Action Creators - */
 
@@ -40,6 +42,15 @@ export const addASpot = (spot) => {
     return {
         type: ADD_A_SPOT,
        spot
+    }
+}
+
+/*-Spot Images-*/
+export const addImages = (image, spotId) => {
+    return {
+        type: ADD_SPOT_IMAGES,
+        image,
+        spotId
     }
 }
 
@@ -108,6 +119,27 @@ export const thunkACreate = (spot) => async (dispatch) => {
       const errors = await err.json();
       console.log('after err',err);
       return errors;
+    }
+};
+
+/*-Spot Image Thunk-*/
+export const thunkAImages = (image, spotId) => async (dispatch) => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/spots/${spotId}/images`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                url: image.url,
+                preview: image.preview
+            })
+        });
+        const newImage = await res.json();
+        dispatch(addImages(image, spotId))
+        return newImage;
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
     }
 };
 
@@ -204,6 +236,20 @@ const spotsReducer = (state = initialState, action) => {
 
             };
 
+        }
+        case ADD_SPOT_IMAGES: {
+            const spot = {...state.singleSpot}
+            const newSpot = Object.values(spot)
+            if (!newSpot[0].SpotImages instanceof Array) {
+                newSpot[0].SpotImages.push(action.image)
+            } else {
+                newSpot[0].SpotImages = [action.image];
+            }
+            newSpot[newSpot.id] = newSpot;
+            return {
+                ...state,
+                singleSpot: newSpot
+            }
         }
         case EDIT_A_SPOT: {
             console.log('EDIT_A_SPOT', action.spot);
