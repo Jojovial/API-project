@@ -20,14 +20,15 @@ const SpotForm = ({ spot, formType }) => {
     const [image4, setImage4] = useState(spot?.image4);
     const [image5, setImage5] = useState(spot?.image5);
     const [errors, setErrors] = useState({});
+    const [editedSpot, setEditedSpot] = useState(spot);
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
          const err = {};
-         const SpotImages = [];
-          spot = {
+
+         spot = {
           ...spot,
           country,
           address,
@@ -60,10 +61,11 @@ const SpotForm = ({ spot, formType }) => {
           ]
         };
         if (formType === "Update your Spot") {
-          const editedSpot = await dispatch(thunkAEdit(spot));
+          const editedSpot = await dispatch(thunkAEdit(spot.id, spot));
           if (editedSpot.errors) {
             setErrors(editedSpot.errors);
           } else {
+            setEditedSpot(editedSpot);
             history.push(`/spots/${editedSpot.id}`);
           }
         } else if (formType === "Create a new Spot") {
@@ -71,6 +73,7 @@ const SpotForm = ({ spot, formType }) => {
           if (newSpot.errors) {
             setErrors(newSpot.errors);
           } else {
+            setEditedSpot(newSpot);
             history.push(`/spots/${newSpot.id}`);
           }
         }

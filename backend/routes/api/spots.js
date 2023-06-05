@@ -500,7 +500,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     return next(err);
   }
 
-  const updateSpot = await Spot.findByPk(req.user.id);
+  const updateSpot = await Spot.findByPk(spotId);
 
   if (!updateSpot) {
     const err = new Error(`Spot couldn't be found`);

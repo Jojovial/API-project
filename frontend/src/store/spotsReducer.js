@@ -147,11 +147,11 @@ export const thunkAImages = (image, spotId) => async (dispatch) => {
 };
 
 /*-Edit A Spot Thunk - */
-export const thunkAEdit = (spot) => async (dispatch) => {
+export const thunkAEdit = (spotId, spot) => async (dispatch) => {
     console.log('thunk reached', spot);
     let res;
     try {
-        res = await csrfFetch(`/api/spots/${spot.id}`, {
+        res = await csrfFetch(`/api/spots/${spotId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(spot)

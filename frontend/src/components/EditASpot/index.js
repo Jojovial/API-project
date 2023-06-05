@@ -19,13 +19,13 @@ const EditASpot = () => {
     }
 
  return (
-    Object.keys(spot).length > 1 && (
+ 
 
     <SpotForm
     spot={spot}
     formType='Update your Spot'
     />
-    )
+
  );
 
 };
