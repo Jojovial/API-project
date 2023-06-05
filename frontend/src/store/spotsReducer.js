@@ -47,6 +47,7 @@ export const addASpot = (spot) => {
 
 /*-Spot Images-*/
 export const addImages = (image, spotId) => {
+    console.log("adding images thunk", image, spotId)
     return {
         type: ADD_SPOT_IMAGES,
         image,
@@ -113,8 +114,9 @@ export const thunkACreate = (spot) => async (dispatch) => {
         console.log("where is poop town",res)
         const spotResponse = await res.json();
         dispatch(addASpot(spotResponse));
+        console.log("New spot", spotResponse);
         spotResponse.SpotImages = spot.SpotImages.forEach(image => {
-            dispatch(thunkAImages(image, newSpot.id));
+            dispatch(thunkAImages(image, spotResponse.id));
         })
         return spotResponse;
     } catch(err) {
@@ -132,12 +134,10 @@ export const thunkAImages = (image, spotId) => async (dispatch) => {
         res = await csrfFetch(`/api/spots/${spotId}/images`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                url: image.url,
-                preview: image.preview
-            })
+            body: JSON.stringify(image)
         });
         const newImage = await res.json();
+        console.log("Is this hitting the backend for newImage", newImage)
         dispatch(addImages(image, spotId))
         return newImage;
     } catch (err) {
@@ -226,16 +226,11 @@ const spotsReducer = (state = initialState, action) => {
         }
         case ADD_A_SPOT: {
             console.log('CREATE A SPOT ACTION', action);
-            const newSpot = action.spot;
+            const createdSpot = action.spot;
             console.log('newSpot', action.spot);
             return {
                 ...state,
-                allSpots: {
-                    ...state.allSpots,
-                    [newSpot.id]: newSpot,
-
-                },
-                singleSpot: newSpot,
+                singleSpot: createdSpot
 
             };
 
@@ -265,9 +260,12 @@ const spotsReducer = (state = initialState, action) => {
             };
         }
         case DELETE_A_SPOT: {
-            const newSpots = { ...state, allSpots:{...state.allSpots} };
-            delete newSpots.allSpots[action.spotId]
-            return newSpots
+           const newSpot = {...state.allSpots};
+           delete newSpot[action.spotId]
+           return {
+            ...state,
+            allSpots: newSpot
+           }
         }
         default:
             return state;

@@ -26,28 +26,7 @@ const SpotForm = ({ spot, formType }) => {
         e.preventDefault();
         setErrors({});
          const err = {};
-         const spotImages = [
-          {
-            preview: true,
-            url: previewImage,
-          },
-          {
-            preview: false,
-            url: image2,
-          },
-          {
-            preview: false,
-            url: image3,
-          },
-          {
-            preview: false,
-            url: image4,
-          },
-          {
-            preview: false,
-            url: image5,
-          },
-         ];
+         const SpotImages = [];
           spot = {
           ...spot,
           country,
@@ -57,7 +36,28 @@ const SpotForm = ({ spot, formType }) => {
           description,
           name,
           price,
-          spotImages
+          SpotImages: [
+            {
+              url: previewImage,
+              preview: true
+            },
+            {
+              url: image2,
+              preview: true
+            },
+            {
+              url: image3,
+              preview: true
+            },
+            {
+              url: image4,
+              preview: true
+            },
+            {
+              url: image5,
+              preview: true
+            }
+          ]
         };
         if (formType === "Update your Spot") {
           const editedSpot = await dispatch(thunkAEdit(spot));

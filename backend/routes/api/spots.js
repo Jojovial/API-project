@@ -48,7 +48,6 @@ const validateSpot = [
     .withMessage('A description is required'),
   check('price')
     .exists({ checkFalsy: true })
-    .isNumeric()
     .withMessage('A price is required'),
   handleValidationErrors
 ];
@@ -486,7 +485,7 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
       price
   });
 
-  res.status(201).json({Spot:newSpot});
+  res.status(201).json(newSpot);
 });
 
 
