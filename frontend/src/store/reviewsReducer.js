@@ -5,6 +5,7 @@ const GET_CURRENT_USER_REVIEWS = '/spots/getCurrentUserReviews';
 const CREATE_REVIEW = 'reviews/createReview';
 const DELETE_A_REVIEW = '/reviews/deleteReview';
 const CLEAR_REVIEWS = '/reviews/clearReviews';
+const UPDATE_REVIEW = '/review/updateReview';
 
 
 
@@ -50,6 +51,16 @@ export const clearReviews = () => {
         type: CLEAR_REVIEWS
     }
 };
+
+
+/*-Update Review-*/
+const updateReview = (review) => {
+    return {
+        type: UPDATE_REVIEW,
+        review
+    }
+}
+
 
 /*- Thunks -*/
 
@@ -106,6 +117,23 @@ export const thunkADeleteReview = (reviewId) => async (dispatch, getState) => {
     }
 };
 
+/*-Update Review Thunk-*/
+export const thunkAUpdateReview = (review) => async (dispatch) => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/reviews/${review.id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(review)
+        })
+        const update = await res.json();
+        dispatch(updateReview(update))
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    }
+}
+
 /*- Review Reducer -*/
 const reviewsReducer = (state = {}, action) => {
     let newState = {};
@@ -126,6 +154,9 @@ const reviewsReducer = (state = {}, action) => {
     return {...state, ...newReview};
         case CREATE_REVIEW:
             return {...state, [action.newReview.id]: action.newReview}
+        case UPDATE_REVIEW:
+            return {...state, [action.review.id]: action.review}
+
         case DELETE_A_REVIEW:
             newState = {...state};
             delete newState[action.reviewId];
