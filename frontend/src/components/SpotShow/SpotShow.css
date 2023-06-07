@@ -1,6 +1,6 @@
 #Spot-Container {
     margin: 1rem 2rem;
-    
+
   }
 
   #Spot-Name,
@@ -21,20 +21,23 @@
 
   .First-Image img {
     width: 30rem;
-    height: auto;
+    height: 100%;
   }
 
   .Other-Images {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: .5rem;
-    width: auto;
+    width: 100%;
+    height: 100%;
+
   }
 
   .Other-Images img {
     width: 15rem;
-    height: auto;
+    height: 100%;
     object-fit: cover;
+    border: none;
   }
 
 
@@ -51,8 +54,8 @@
     width: 40%;
     display: flex;
     flex-direction: column;
-
-    border: 1px solid blue;
+    padding: .5rem;
+    border: 2px solid blue;
     margin-top: 2rem;
 
   }
@@ -78,7 +81,7 @@
   #Reserve-Button{
     margin-top: 1rem;
     border-radius: 30px;
-    border: none;
+    border: 2.5px solid blue;
     color: rgb(0, 6, 175);
     background-color: rgb(148, 169, 239);
     padding: 0.5rem 1rem;

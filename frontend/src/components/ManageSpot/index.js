@@ -35,9 +35,11 @@ const CurrentUserSpots = () => {
         <>
             <div className ="Current-Header">
             <h1>Manage your spots or else</h1>
-            <Link exact to="/spots/new">
-                <button className="Create-Button">Create New Spot</button>
-            </Link>
+            {currentSpots.length === 0 && (
+          <Link exact to="/spots/new">
+            <button className="Create-Button">Create New Spot</button>
+          </Link>
+             )}
             </div>
             <div id="SpotsContainer">
             {Object.values(currentSpots).map((spot) => {

@@ -67,7 +67,16 @@ const SpotShow = () => {
             <div className="First-Image">
                 <img src={spot.SpotImages[0].url} alt={spot.SpotImages[0].altText}/>
                     </div>)}
-         {Array.isArray(spot.SpotImages) && spot.SpotImages.map(image => (<li className="Other-Images"><img src={image.url} alt={image.altText}/></li>))}
+                    {Array.isArray(spot.SpotImages) &&
+  spot.SpotImages.slice(0, 5).map((image, index) => (
+    <li className="Other-Images" key={index}>
+      {image.url ? (
+        <img src={image.url} alt={image.altText} />
+      ) : (
+        <div className="missing-image"></div>
+      )}
+    </li>
+  ))}
                     </div>
         <div className="Spot-Info">
             <div className="Spot-Owner">
@@ -86,6 +95,7 @@ const SpotShow = () => {
          </div>
          <div className="Stars-Container">
             <h3>{stars}</h3>
+            <h3>.</h3>
             <h3 className="Number-Reviews">{spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h3>
          </div>
          <div className="Reviews-Container">
