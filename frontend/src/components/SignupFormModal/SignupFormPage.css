@@ -22,7 +22,6 @@ input {
     border: none;
     display: flex;
     justify-content: flex-end;
-    box-shadow: 2px 2px 5px 1px blue;
     padding: .5rem;
     width: 25rem;
     margin-bottom: 1rem;
