@@ -5,6 +5,8 @@ const GET_CURRENT_USER_REVIEWS = '/spots/getCurrentUserReviews';
 const CREATE_REVIEW = 'reviews/createReview';
 const DELETE_A_REVIEW = '/reviews/deleteReview';
 const CLEAR_REVIEWS = '/reviews/clearReviews';
+const UPDATE_REVIEW = '/review/updateReview';
+
 
 
 
@@ -21,10 +23,10 @@ export const getAllReviews = (reviews) => {
 };
 
 /*- Get Current User Reviews-*/
-export const getCurrentUserReviews = (review) => {
+export const getCurrentUserReviews = (reviews) => {
     return {
         type: GET_CURRENT_USER_REVIEWS,
-        review
+        reviews
     };
 };
 
@@ -51,6 +53,14 @@ export const clearReviews = () => {
     }
 };
 
+/*-Update Review-*/
+const updateReview = (review) => {
+    return {
+        type: UPDATE_REVIEW,
+        review
+    }
+}
+
 /*- Thunks -*/
 
 /*- All Reviews Thunk -*/
@@ -68,8 +78,8 @@ export const thunkAllReviews = (spotId) => async (dispatch) => {
 /*- Current User Reviews Thunk -*/
 export const thunkACurrentReviews = () => async (dispatch) => {
     const response = await csrfFetch('/api/reviews/current');
-    const review = await response.json();
-    dispatch(getCurrentUserReviews(review));
+    const reviews = await response.json();
+    dispatch(getCurrentUserReviews(reviews));
 };
 
 /*- Add a Review Thunk -*/
@@ -106,6 +116,23 @@ export const thunkADeleteReview = (reviewId) => async (dispatch, getState) => {
     }
 };
 
+/*-Update Review Thunk-*/
+export const thunkAUpdateReview = (review) => async (dispatch) => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/reviews/${review.id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(review)
+        })
+        const update = await res.json();
+        dispatch(updateReview(update))
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    }
+}
+
 /*- Review Reducer -*/
 const reviewsReducer = (state = {}, action) => {
     let newState = {};
@@ -115,17 +142,27 @@ const reviewsReducer = (state = {}, action) => {
     const newReview = {};
     const reviews = action.reviews.Reviews;
     console.log('GET_ALL_REVIEWS', reviews);
-    if (reviews && reviews.length > 0) {
-        reviews.forEach(review => {
-            newReview[review.id] = review;
-        });
-    } else {
-        newReview[action.reviews.SpotId] = {};
-    }
-    console.log('NEW REVIEW', newReview);
-    return {...state, ...newReview};
+            if (reviews && reviews.length > 0) {
+                reviews.forEach(review => {
+                    newReview[review.id] = review;
+                });
+            } else {
+                newReview[action.reviews.SpotId] = {};
+            }
+            console.log('NEW REVIEW', newReview);
+            return {...state, ...newReview};
+            case GET_CURRENT_USER_REVIEWS:
+                const newReviews = {};
+                if (Array.isArray(action.reviews)) {
+                  action.reviews.forEach(review => {
+                    newReviews[review.id] = review;
+                  });
+                }
+                return { ...state, ...newReviews };
         case CREATE_REVIEW:
-            return {...state, [action.newReview.id]: action.newReview}
+            return {...state, [action.newReview.id]: action.newReview};
+        case UPDATE_REVIEW:
+            return {...state, [action.review.id]: action.review};
         case DELETE_A_REVIEW:
             newState = {...state};
             delete newState[action.reviewId];
