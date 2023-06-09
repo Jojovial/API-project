@@ -30,7 +30,13 @@
     border-radius: 4px;
     font-size: 1rem;
     font-family: inherit;
+    background-color:rgb(208, 216, 244);
   }
+
+  textarea[type="text"] {
+    background-color:rgb(208, 216, 244);
+  }
+
 
   button[type="submit"] {
     border-radius: 30px;
