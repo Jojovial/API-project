@@ -93,6 +93,7 @@ export const thunkCreateReview = (newReview) => async (dispatch) => {
         });
         const resReview = await res.json();
         dispatch(createAReview(resReview));
+        console.log('New Review Thunk', resReview)
         return resReview;
     } catch(err) {
         const errors = await err.json();
