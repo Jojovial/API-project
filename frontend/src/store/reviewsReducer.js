@@ -77,9 +77,16 @@ export const thunkAllReviews = (spotId) => async (dispatch) => {
 
 /*- Current User Reviews Thunk -*/
 export const thunkACurrentReviews = () => async (dispatch) => {
-    const response = await csrfFetch('/api/reviews/current');
-    const reviews = await response.json();
-    dispatch(getCurrentUserReviews(reviews));
+    let res;
+    try {
+
+        res = await csrfFetch('/api/reviews/current');
+        const reviews = await res.json();
+        dispatch(getCurrentUserReviews(reviews));
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
+    }
 };
 
 /*- Add a Review Thunk -*/
@@ -143,23 +150,28 @@ const reviewsReducer = (state = {}, action) => {
     const newReview = {};
     const reviews = action.reviews.Reviews;
     console.log('GET_ALL_REVIEWS', reviews);
-            if (reviews && reviews.length > 0) {
-                reviews.forEach(review => {
-                    newReview[review.id] = review;
-                });
-            } else {
-                newReview[action.reviews.SpotId] = {};
-            }
-            console.log('NEW REVIEW', newReview);
-            return {...state, ...newReview};
-            case GET_CURRENT_USER_REVIEWS:
-                const newReviews = {};
-                if (Array.isArray(action.reviews)) {
-                  action.reviews.forEach(review => {
-                    newReviews[review.id] = review;
-                  });
-                }
-                return { ...state, ...newReviews };
+    if (reviews && reviews.length > 0) {
+        reviews.forEach(review => {
+            newReview[review.id] = review;
+        });
+    } else {
+        newReview[action.reviews.SpotId] = {};
+    }
+    console.log('NEW REVIEW', newReview);
+    return {...state, ...newReview};
+    case GET_CURRENT_USER_REVIEWS:
+    const newCurrentUserReviews = {};
+    const currentUserReviews = action.reviews.Reviews;
+    console.log('GET_CURRENT_USER_REVIEWS', currentUserReviews);
+    if (currentUserReviews && currentUserReviews.length > 0) {
+      currentUserReviews.forEach((review) => {
+        newCurrentUserReviews[review.id] = review;
+      });
+    } else {
+      newCurrentUserReviews[action.reviews.SpotId] = {};
+    }
+    console.log('NEW CURRENT USER REVIEWS', newCurrentUserReviews);
+    return { ...state, ...newCurrentUserReviews };
         case CREATE_REVIEW:
             return {...state, [action.newReview.id]: action.newReview};
         case UPDATE_REVIEW:

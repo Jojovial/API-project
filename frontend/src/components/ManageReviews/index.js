@@ -7,7 +7,7 @@ import DeleteReviewModal from '../DeleteReviewModal';
 
 const CurrentReviews = () => {
     const dispatch = useDispatch();
-    const userReviews = useSelector(state => state.reviews.user);
+    const userReviews = useSelector(state => state.reviews);
     console.log('Current Reviews', userReviews)
 
     useEffect(() => {
