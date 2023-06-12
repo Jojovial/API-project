@@ -30,6 +30,11 @@
     border-radius: 4px;
     font-size: 1rem;
     font-family: inherit;
+    background-color: rgb(182, 199, 255);
+  }
+
+  textarea[type="text"]{
+    background-color: rgb(182, 199, 255);
   }
 
   button[type="submit"] {
@@ -42,3 +47,5 @@
     font-weight: bold;
     cursor: pointer;
   }
+
+

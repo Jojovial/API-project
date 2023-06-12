@@ -32,7 +32,7 @@
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: .2rem;
-    
+
   }
 
   #spot-Grid {
@@ -56,7 +56,7 @@
   .Update-Delete > a:first-child {
     text-decoration: none;
     border-radius: 30px;
-    border: none;
+    border: 2px solid blue;
     color: rgb(0, 6, 175);
     background-color: rgb(148, 169, 239);
     padding: 0.5rem 1rem;
@@ -68,7 +68,7 @@
 
   .Update-Delete > button {
     border-radius: 30px;
-    border: none;
+    border: 2px solid blue;
     color: rgb(0, 6, 175);
     background-color: rgb(148, 169, 239);
     padding: 0.5rem 1rem;

@@ -31,6 +31,11 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 1,
+        url: "https://media.discordapp.net/attachments/379865870916255744/1117609670685757540/latest.png",
+        preview: true
+      },
+      {
         spotId: 2,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105233683276898385/5b14903a339c68dd4010289dbdfdada4.jpg',
         preview: true,
@@ -48,6 +53,11 @@ module.exports = {
       {
         spotId: 2,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107357011026382988/MV5BYmYxY2QyOGYtMDUyNS00ZmM3LWFjODMtOTg0ZmI5OWVkMmU2XkEyXkFqcGdeQXVyNzgxMzc3OTc.png',
+        preview: true,
+      },
+      {
+        spotId: 2,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609670916456538/latest.png?width=1202&height=676',
         preview: true,
       },
       {
@@ -71,6 +81,11 @@ module.exports = {
         preview: true,
       },
       {
+        spotId: 3,
+        url: 'https://cdn.discordapp.com/attachments/379865870916255744/1117610800958427237/3147783.png',
+        preview: true,
+      },
+      {
         spotId: 4,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105240671058677810/latest.png',
         preview: true,
@@ -88,6 +103,11 @@ module.exports = {
       {
         spotId: 4,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107358499513573386/maxresdefault.png',
+        preview: true,
+      },
+      {
+        spotId: 4,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609671239405619/latest.png?width=1220&height=676',
         preview: true,
       },
       {
@@ -111,6 +131,11 @@ module.exports = {
         preview: true,
       },
       {
+        spotId: 5,
+        url: 'https://cdn.discordapp.com/attachments/379865870916255744/1117613766494912562/latest.png',
+        preview: true,
+      },
+      {
         spotId: 6,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107458061964161124/352.png',
         preview: true,
@@ -128,6 +153,11 @@ module.exports = {
       {
         spotId: 6,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107360227365494824/6d0bb15e04f854958bcbfadfdc9d869fb612aa26.png',
+        preview: true,
+      },
+      {
+        spotId: 6,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609746325852170/a03c98b1479927ffe08e648c3966b43ac56d5216.png?width=1202&height=676',
         preview: true,
       },
       {
@@ -151,6 +181,11 @@ module.exports = {
         preview: true,
       },
       {
+        spotId: 7,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609746028044368/f23cb8dd0812bcb9b4c228d4b9610cbeb4436d90r1-959-539v2_hq640x360.png',
+        preview: true,
+      },
+      {
         spotId: 8,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105243894616162314/latest.png',
         preview: true,
@@ -168,6 +203,11 @@ module.exports = {
       {
         spotId: 8,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107362096594829382/latest.png',
+        preview: true,
+      },
+      {
+        spotId: 8,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609745516331018/259.png',
         preview: true,
       },
       {
@@ -191,6 +231,11 @@ module.exports = {
         preview: true,
       },
       {
+        spotId: 9,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609812772016238/-1YuQBUw6-nuAkY2GOwPi3fP-391PlQzmvzP0DpZKBQ.png?width=1202&height=676',
+        preview: true,
+      },
+      {
         spotId: 10,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105244249743700060/latest.png',
         preview: true,
@@ -208,6 +253,11 @@ module.exports = {
       {
         spotId: 10,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107363465934426182/latest.png',
+        preview: true,
+      },
+      {
+        spotId: 10,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609812520345621/dad87bc105f0e0bfcc7952ef7398f459601f8683_hq.png',
         preview: true,
       },
       {
@@ -231,6 +281,11 @@ module.exports = {
         preview: true,
       },
       {
+        spotId: 11,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609812272889856/1447003959-69dc457b09bff4ad37aff077c62fa94a.png',
+        preview: true,
+      },
+      {
         spotId: 12,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107458063188902008/latest.png',
         preview: true,
@@ -248,6 +303,11 @@ module.exports = {
       {
         spotId: 12,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1107364434030104646/latest.png',
+        preview: true,
+      },
+      {
+        spotId: 12,
+        url: 'https://media.discordapp.net/attachments/379865870916255744/1117609811949932624/a9129cdacbc1fda63b758120a4056549.png',
         preview: true,
       }
 

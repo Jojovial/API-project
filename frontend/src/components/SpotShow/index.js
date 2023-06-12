@@ -68,7 +68,7 @@ const SpotShow = () => {
                 <img src={spot.SpotImages[0].url} alt={spot.SpotImages[0].altText}/>
                     </div>)}
                     {Array.isArray(spot.SpotImages) &&
-  spot.SpotImages.slice(0, 5).map((image, index) => (
+  spot.SpotImages.slice(1, 5).map((image, index) => (
     <li className="Other-Images" key={index}>
       {image.url ? (
         <img src={image.url} alt={image.altText} />

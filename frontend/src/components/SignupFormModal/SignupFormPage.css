@@ -8,6 +8,8 @@
     padding-top: .2rem;
     margin-left: 5rem;
     margin-bottom: 0rem;
+    border-radius: 20rem;
+
 
 
 }
@@ -19,12 +21,13 @@
 }
 
 input {
-    border: none;
+    border: 2px solid blue;
     display: flex;
     justify-content: flex-end;
     padding: .5rem;
     width: 25rem;
     margin-bottom: 1rem;
+    background-color: rgb(182, 199, 255);
 
 }
 
@@ -33,7 +36,7 @@ input {
     justify-content: center;
     margin-top: 1rem;
     border-radius: 30px;
-    border: none;
+    border: 2px solid blue;
     color: rgb(0, 6, 175);
     background-color: rgb(148, 169, 239);
     height: 2.5rem;
